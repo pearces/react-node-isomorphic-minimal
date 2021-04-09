@@ -1,0 +1,20 @@
+{
+  "name": "react-node-isomorphic-minimal",
+  "version": "0.0.1",
+  "description": "Minimal isomorphic react, node app skeleton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Pearce (https://github.com/pearces)",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "node",
+    "express"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {}
+}
