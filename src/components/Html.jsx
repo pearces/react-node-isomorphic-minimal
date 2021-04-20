@@ -15,6 +15,7 @@ const Html = ({
     </head>
     <body>
       <div id="app">{children}</div>
+      <script src="/static/bundle.js" />
     </body>
   </html>
 );
