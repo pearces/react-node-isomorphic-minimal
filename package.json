@@ -8,10 +8,11 @@
   "keywords": [
     "react",
     "node",
-    "express"
+    "express",
+    "webpack"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.10.0"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -37,9 +38,12 @@
     "webpack-node-externals": "^3.0.0"
   },
   "scripts": {
-    "build": "webpack --progress --mode development",
+    "build": "webpack --progress --mode production",
+    "build:dev": "webpack --progress -d eval-source-map --mode development",
+    "clean": "node clean.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && node dist/server.js",
+    "start:dev": "npm run clean && npm run build:dev && NODE_ENV=development node dist/server.js",
+    "start": "npm run clean && npm run build && NODE_ENV=production node dist/server.js",
     "lint": "eslint"
   }
 }
