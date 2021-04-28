@@ -1,10 +1,12 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const distPath = path.join(__dirname, 'dist');
+const isDev = process.env.NODE_ENV === 'development';
 
 const common = {
-  ...(process.env.NODE_ENV === 'development' && {
+  ...(isDev && {
     watch: true,
     watchOptions: {
       ignored: /node_modules/
@@ -31,12 +33,16 @@ const clientConfig = {
   ...common,
   target: 'browserslist',
   entry: {
-    bundle: ['./src/client.js']
+    bundle: './src/client.js'
   },
   output: {
     path: distPath,
-    filename: '[name].js'
-  }
+    publicPath: '',
+    filename: `${isDev ? '[name]' : '[name]-[contenthash]'}.js`
+  },
+  plugins: [
+    new WebpackManifestPlugin()
+  ]
 };
 
 const serverConfig = {

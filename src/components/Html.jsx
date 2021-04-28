@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const Html = ({
   children,
   title,
-  description
+  description,
+  scripts
 }) => (
   <html lang="en">
     <head>
@@ -15,7 +16,7 @@ const Html = ({
     </head>
     <body>
       <div id="app">{children}</div>
-      <script src="/static/bundle.js" />
+      {scripts.map((script) => <script src={`/static/${script}`} key={script} />)}
     </body>
   </html>
 );
@@ -23,12 +24,14 @@ const Html = ({
 Html.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  scripts: PropTypes.arrayOf(PropTypes.string)
 };
 
 Html.defaultProps = {
   title: '',
-  description: ''
+  description: '',
+  scripts: []
 };
 
 export default Html;
