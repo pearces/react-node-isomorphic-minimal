@@ -18,12 +18,16 @@ const getAssets = () => {
   return Object.values(assets);
 };
 
-const getScripts = (assets = []) => assets.filter((asset) => /\.js/.test(asset));
+const getAssetType = (assets = [], ext = '') => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
 
 app.get('/', (req, res) => {
   const assets = getAssets();
   const content = ReactDOMServer.renderToString(
-    <Html title="react-node-isomorphic-minimal app" scripts={getScripts(assets)}>
+    <Html
+      title="react-node-isomorphic-minimal app"
+      stylesheets={getAssetType(assets, 'css')}
+      scripts={getAssetType(assets, 'js')}
+    >
       <App />
     </Html>
   );
