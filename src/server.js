@@ -38,7 +38,9 @@ app.get('/', (req, res) => {
   res.status(200).send(content);
 });
 
-app.use('/static', express.static(path.join(__dirname)));
+app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname)));
+
+app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 
 app.listen(port, () => {
   console.log(`App listening on localhost:${port}`); // eslint-disable-line no-console

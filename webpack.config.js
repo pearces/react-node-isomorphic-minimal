@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const distPath = path.join(__dirname, 'dist');
 const isDev = process.env.NODE_ENV === 'development';
@@ -43,7 +44,8 @@ const clientConfig = {
   },
   plugins: [
     new WebpackManifestPlugin(),
-    new MiniCssExtractPlugin({ filename: `${isDev ? '[name]' : '[name]-[contenthash]'}.css` })
+    new MiniCssExtractPlugin({ filename: `${isDev ? '[name]' : '[name]-[contenthash]'}.css` }),
+    new CopyPlugin({ patterns: [{ from: 'static' }] })
   ],
   module: {
     ...common.module,
