@@ -1,6 +1,6 @@
 import React from 'react';
-import Html from './components/Html';
-import App from './components/App';
+import Html from 'components/Html';
+import App from 'components/App';
 
 const express = require('express');
 const ReactDOMServer = require('react-dom/server');
