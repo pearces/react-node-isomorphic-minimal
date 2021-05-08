@@ -2,6 +2,9 @@
 
 exports[`App matches component snapshot 1`] = `
 Array [
+  <h1>
+    react-node-isomorphic-minimal app
+  </h1>,
   <div>
     The button has been clicked 0 times.
   </div>,

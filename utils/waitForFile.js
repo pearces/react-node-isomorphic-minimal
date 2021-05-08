@@ -8,8 +8,11 @@ if (!filePath) {
   process.exit(1);
 }
 
+const fullPath = path.join(process.cwd(), filePath);
+console.log(`Waiting for ${fullPath}...`);
+
 (function fileExists() {
-  if (fs.existsSync(path.join(process.cwd(), filePath))) {
+  if (fs.existsSync(fullPath)) {
     process.exit(0);
   }
   setTimeout(fileExists, 500);

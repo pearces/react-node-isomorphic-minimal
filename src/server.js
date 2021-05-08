@@ -1,6 +1,7 @@
 import React from 'react';
 import Html from 'components/Html';
 import App from 'components/App';
+import { DEFAULT_PORT, APP_NAME } from './constants';
 
 const express = require('express');
 const ReactDOMServer = require('react-dom/server');
@@ -8,7 +9,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const DEFAULT_PORT = 3000;
+
 const { PORT: port = DEFAULT_PORT, NODE_ENV } = process.env;
 
 const getAssets = () => {
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
   const assets = getAssets();
   const content = ReactDOMServer.renderToString(
     <Html
-      title="react-node-isomorphic-minimal app"
+      title={APP_NAME}
       stylesheets={getAssetType(assets, 'css')}
       scripts={getAssetType(assets, 'js')}
     >

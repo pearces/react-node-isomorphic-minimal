@@ -66,7 +66,8 @@ const serverConfig = {
   entry: './src/server.js',
   output: {
     path: distPath,
-    filename: 'server.js'
+    filename: 'server.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     ...common.module,

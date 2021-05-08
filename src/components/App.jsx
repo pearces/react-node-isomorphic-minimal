@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { APP_NAME } from '../constants';
 import './App.scss';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
     const { count } = this.state;
     return (
       <>
+        <h1>{APP_NAME}</h1>
         <div>{`The button has been clicked ${count} times.`}</div>
         <button type="button" label="click this" onClick={this.clickHandler}>Click this</button>
       </>
