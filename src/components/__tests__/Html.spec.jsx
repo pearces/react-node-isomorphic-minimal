@@ -21,4 +21,10 @@ describe('Html', () => {
     const html = shallow(<Html scripts={scripts}><div /></Html>);
     expect(html.find('script').findWhere((script) => script.prop('src').includes(scripts[0])).length).toEqual(1);
   });
+
+  it('renders with inline css', () => {
+    const styles = 'html {background: "#fff"}';
+    const html = shallow(<Html inlineCss={styles}><div /></Html>);
+    expect(html.find('style').text()).toEqual(styles);
+  });
 });

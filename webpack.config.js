@@ -69,11 +69,15 @@ const serverConfig = {
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
+  plugins: [
+    new MiniCssExtractPlugin({ filename: 'inline.css' })
+  ],
   module: {
     ...common.module,
     rules: [
       ...common.module.rules,
-      { test: /\.s[ac]ss$/i, use: 'null-loader' }
+      { test: /\.s[ac]ss$/i, use: 'null-loader' },
+      { test: /Main\.s[ac]ss$/i, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'] }
     ]
   }
 };

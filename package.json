@@ -60,7 +60,7 @@
     "unit": "jest",
     "test": "npm run lint && npm run unit",
     "server": "NODE_ENV=production node dist/server.js",
-    "server:dev": "node utils/waitForFile.js dist/server.js && NODE_ENV=development nodemon --delay 2.5 --watch dist --ext js --ignore dist/bundle.js dist/server.js",
+    "server:dev": "node utils/waitForFile.js dist/server.js && NODE_ENV=development nodemon --inspect --delay 2.5 --watch dist --ext js --ignore dist/bundle.js dist/server.js",
     "start": "npm run clean && npm run build && npm run server",
     "start:dev": "npm run clean && concurrently \"npm:build:dev\" \"npm:server:dev\"",
     "lint": "eslint src"
