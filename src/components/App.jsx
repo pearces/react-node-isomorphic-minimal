@@ -16,7 +16,7 @@ class App extends Component {
       <>
         <h1>{APP_NAME}</h1>
         <div>{`The button has been clicked ${count} times.`}</div>
-        <button className="primary" type="button" label="click this" onClick={this.clickHandler}>Click this</button>
+        <button className="primary center" type="button" label="click this" onClick={this.clickHandler}>Click this</button>
       </>
     );
   }

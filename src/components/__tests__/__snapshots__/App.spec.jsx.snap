@@ -9,7 +9,7 @@ Array [
     The button has been clicked 0 times.
   </div>,
   <button
-    className="primary"
+    className="primary center"
     label="click this"
     onClick={[Function]}
     type="button"
