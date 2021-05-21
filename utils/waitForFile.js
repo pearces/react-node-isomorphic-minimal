@@ -2,18 +2,19 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = process.argv.slice(2)[0];
-if (!filePath) {
-  console.error('Filename must be specified');
+const filePaths = process.argv.slice(2);
+if (!filePaths.length) {
+  console.error('At least one filename must be specified');
   process.exit(1);
 }
 
-const fullPath = path.join(process.cwd(), filePath);
-console.log(`Waiting for ${fullPath}...`);
+const fullPaths = filePaths.map((filePath) => path.join(process.cwd(), filePath));
+console.log(`Waiting for ${fullPaths.join(', ')}...`);
 
-(function fileExists() {
-  if (fs.existsSync(fullPath)) {
+(function filesExist(files) {
+  const remaining = files.filter((file) => !fs.existsSync(file));
+  if (!remaining.length) {
     process.exit(0);
   }
-  setTimeout(fileExists, 500);
-}());
+  setTimeout(() => filesExist(remaining), 500);
+}(fullPaths));

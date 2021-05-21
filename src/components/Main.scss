@@ -1,20 +1,6 @@
 // add critical path styles here to be included inline in the index file html
-
-* {
-	box-sizing: border-box;
-}
-
 html, body {
 	min-height: 100%;
 	background: #fff;
 	color: #000;
-}
-
-body {
-  text-rendering: optimizeLegibility;
-}
-
-img {
-	border: none;
-	max-width: 100%;
 }

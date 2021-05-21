@@ -8,6 +8,7 @@ import {
 } from './constants';
 
 const express = require('express');
+const compression = require('compression');
 const ReactDOMServer = require('react-dom/server');
 const path = require('path');
 const fs = require('fs');
@@ -43,6 +44,8 @@ app.get('/', (req, res) => {
   if (req.method === 'GET') res.set('Cache-Control', cacheControl);
   res.status(200).send(`<!DOCTYPE html>${content}`);
 });
+
+app.use(compression());
 
 app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname)));
 
