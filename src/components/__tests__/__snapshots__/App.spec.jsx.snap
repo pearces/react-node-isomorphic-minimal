@@ -1,20 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App matches component snapshot 1`] = `
-Array [
-  <h1>
-    react-node-isomorphic-minimal app
-  </h1>,
-  <div>
-    The button has been clicked 0 times.
-  </div>,
-  <button
-    className="primary center"
-    label="click this"
-    onClick={[Function]}
-    type="button"
-  >
-    Click this
-  </button>,
-]
-`;
+exports[`NoMatch matches component snapshot 1`] = `<div />`;

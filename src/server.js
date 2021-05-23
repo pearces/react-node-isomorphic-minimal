@@ -1,6 +1,10 @@
 import React from 'react';
+import { StaticRouter as Router, matchPath } from 'react-router-dom';
+
 import Html from 'components/Html';
 import App from 'components/App';
+import RouteConfig, { routes } from './routes';
+
 import {
   DEFAULT_PORT,
   APP_NAME,
@@ -27,7 +31,15 @@ const getAssets = () => {
   return Object.values(allAssets);
 };
 
-app.get('/', (req, res) => {
+app.use(compression());
+
+app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname)));
+
+app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
+
+app.get('*', (req, res) => {
+  const activeRoute = routes.find((route) => matchPath(req.url, route));
+
   const getAssetType = (ext) => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
 
   const content = ReactDOMServer.renderToString(
@@ -37,19 +49,17 @@ app.get('/', (req, res) => {
       scripts={getAssetType('js')}
       inlineCss={inlineCss}
     >
-      <App />
+      <Router location={req.url}>
+        <App>
+          <RouteConfig />
+        </App>
+      </Router>
     </Html>
   );
 
   if (req.method === 'GET') res.set('Cache-Control', cacheControl);
-  res.status(200).send(`<!DOCTYPE html>${content}`);
+  res.status(activeRoute ? 200 : 404).send(`<!DOCTYPE html>${content}`);
 });
-
-app.use(compression());
-
-app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname)));
-
-app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 
 app.listen(port, () => {
   const inlineCssPath = path.join(__dirname, INLINE_CSS_FILE);
