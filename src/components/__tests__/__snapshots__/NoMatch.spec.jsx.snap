@@ -1,7 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NoMatch matches component snapshot 1`] = `
-<h1>
-  404 - Not Found
-</h1>
+Array [
+  <h1>
+    404 - Not Found
+  </h1>,
+  <h3>
+    Try one of these instead:
+  </h3>,
+  <ul
+    className="no-list-style"
+  >
+    <li>
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        /
+      </a>
+    </li>
+    <li>
+      <a
+        href="/foo"
+        onClick={[Function]}
+      >
+        /foo
+      </a>
+    </li>
+  </ul>,
+]
 `;

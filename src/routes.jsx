@@ -8,6 +8,10 @@ export const routes = [
     path: '/',
     component: Count,
     exact: true
+  },
+  {
+    path: '/count',
+    component: Count
   }
 ];
 
@@ -22,7 +26,7 @@ const RouteConfig = (props) => (
       />
     ))}
     <Route path="*">
-      <NoMatch />
+      <NoMatch routes={routes} />
     </Route>
   </Switch>
 );

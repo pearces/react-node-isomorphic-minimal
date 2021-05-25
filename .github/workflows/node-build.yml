@@ -28,3 +28,5 @@ jobs:
       run: npm run build
     - name: Run unit tests
       run: npm run test
+    - name: Run npm audit
+      run: npm audit
