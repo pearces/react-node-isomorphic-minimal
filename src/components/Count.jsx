@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { APP_NAME } from '../constants';
 
-class Count extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
+/* istanbul ignore next */
+const { title } = typeof document !== 'undefined' ? document : {};
 
-  clickHandler = () => this.setState(({ count }) => ({ count: count + 1 }));
+const Count = () => {
+  const [count, setCount] = useState(0);
 
-  render() {
-    const { count } = this.state;
-    return (
-      <>
-        <h1>{APP_NAME}</h1>
-        <div>{`The button has been clicked ${count} times.`}</div>
-        <button className="primary center" type="button" label="click this" onClick={this.clickHandler}>Click this</button>
-      </>
-    );
-  }
-}
+  React.useEffect(() => {
+    document.title = `${title} (${count})`;
+  }, [count]);
+
+  return (
+    <>
+      <h1>{APP_NAME}</h1>
+      <div>{`The button has been clicked ${count} times.`}</div>
+      <button className="primary center" type="button" label="click this" onClick={() => setCount(count + 1)}>Click this</button>
+    </>
+  );
+};
 
 export default Count;
