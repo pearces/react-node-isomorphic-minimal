@@ -27,4 +27,10 @@ describe('Html', () => {
     const html = shallow(<Html inlineCss={styles}><div /></Html>);
     expect(html.find('style').text()).toEqual(styles);
   });
+
+  it('renders with inline script', () => { /* eslint-disable no-underscore-dangle */
+    const scripts = ['console.log("foo")'];
+    const html = shallow(<Html inlineScripts={scripts}><div /></Html>);
+    expect(html.find('script').props().dangerouslySetInnerHTML.__html).toEqual(scripts[0]);
+  });
 });

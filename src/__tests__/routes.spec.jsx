@@ -3,6 +3,11 @@ import { StaticRouter as Router } from 'react-router-dom';
 import { mount } from 'enzyme';
 import RouteConfig, { routes } from '../routes';
 
+jest.mock('components/Count', () => ({
+  __esModule: true,
+  default: () => (<div />)
+}));
+
 describe('routes', () => {
   it('routes list', () => {
     expect(routes.length).toBeTruthy();

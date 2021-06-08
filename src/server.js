@@ -1,9 +1,12 @@
 import React from 'react';
 import { StaticRouter as Router, matchPath } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import Html from 'components/Html';
 import App from 'components/App';
 import RouteConfig, { routes } from './routes';
+import rootReducer from './reducers';
 
 import {
   DEFAULT_PORT,
@@ -42,17 +45,22 @@ app.get('*', (req, res) => {
 
   const getAssetType = (ext) => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
 
+  const store = createStore(rootReducer);
+
   const content = ReactDOMServer.renderToString(
     <Html
       title={APP_NAME}
       stylesheets={getAssetType('css')}
       scripts={getAssetType('js')}
       inlineCss={inlineCss}
+      inlineScripts={[`window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}`]}
     >
       <Router location={req.url}>
-        <App>
-          <RouteConfig />
-        </App>
+        <Provider store={store}>
+          <App>
+            <RouteConfig />
+          </App>
+        </Provider>
       </Router>
     </Html>
   );

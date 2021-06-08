@@ -6,10 +6,12 @@ const Html = ({
   children,
   title,
   inlineCss,
+  inlineScripts,
   description,
   stylesheets,
   scripts
 }) => (
+  /* eslint-disable react/no-danger, react/no-array-index-key */
   <html lang="en">
     <head>
       <meta charSet="utf-8" />
@@ -21,6 +23,7 @@ const Html = ({
       <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
+      {inlineScripts.map((script, index) => <script key={`inline${index}`} dangerouslySetInnerHTML={{ __html: script }} />)}
     </head>
     <body>
       <div id="app">{children}</div>
@@ -34,6 +37,7 @@ Html.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   inlineCss: PropTypes.string,
+  inlineScripts: PropTypes.arrayOf(PropTypes.string),
   stylesheets: PropTypes.arrayOf(PropTypes.string),
   scripts: PropTypes.arrayOf(PropTypes.string)
 };
@@ -41,6 +45,7 @@ Html.propTypes = {
 Html.defaultProps = {
   title: '',
   inlineCss: undefined,
+  inlineScripts: [],
   description: '',
   stylesheets: [],
   scripts: []

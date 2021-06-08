@@ -1,0 +1,17 @@
+@use "../sass" as *;
+
+@include md {
+  section {
+    div {
+      display: flex;
+  
+      p {
+        flex-basis: 25%;
+      }
+
+      button {
+        flex-basis: 75%;
+      }
+    }
+  }
+}

@@ -5,16 +5,43 @@ Array [
   <h1>
     react-node-isomorphic-minimal app
   </h1>,
-  <div>
-    The button has been clicked 0 times.
-  </div>,
-  <button
-    className="primary center"
-    label="click this"
-    onClick={[Function]}
-    type="button"
-  >
-    Click this
-  </button>,
+  <section>
+    <h2>
+      Redux counter
+    </h2>
+    <div>
+      <p>
+        The button has been clicked 0 times.
+      </p>
+      <button
+        className="primary center"
+        id="storeButton"
+        label="click this"
+        onClick={[Function]}
+        type="button"
+      >
+        Click this
+      </button>
+    </div>
+  </section>,
+  <section>
+    <h2>
+      Component counter
+    </h2>
+    <div>
+      <p>
+        The button has been clicked 0 times.
+      </p>
+      <button
+        className="primary center"
+        id="stateButton"
+        label="click this"
+        onClick={[Function]}
+        type="button"
+      >
+        Click this
+      </button>
+    </div>
+  </section>,
 ]
 `;
