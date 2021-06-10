@@ -3,10 +3,10 @@ import { StaticRouter as Router, matchPath } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import rootReducer from 'reducers';
 import Html from 'components/Html';
 import App from 'components/App';
 import RouteConfig, { routes } from './routes';
-import rootReducer from './reducers';
 
 import {
   DEFAULT_PORT,

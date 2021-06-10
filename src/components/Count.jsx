@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '../actions/count';
+import { increment } from 'actions/count';
 import { APP_NAME } from '../constants';
 import './Count.scss';
 
