@@ -3,6 +3,7 @@ const nodeExternals = require('webpack-node-externals');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const distPath = path.join(__dirname, 'dist');
 const isDev = process.env.NODE_ENV === 'development';
@@ -33,6 +34,13 @@ const common = {
       actions: path.resolve(__dirname, 'src/actions/'),
       reducers: path.resolve(__dirname, 'src/reducers/')
     }
+  },
+  optimization: {
+    minimize: !isDev,
+    minimizer: [
+      '...',
+      new CssMinimizerPlugin()
+    ]
   }
 };
 
