@@ -14,7 +14,7 @@ describe('Count', () => {
     useEffect = jest.spyOn(React, 'useEffect');
     useEffect.mockClear();
 
-    store = createStore(rootReducer, { count: 0 });
+    store = createStore(rootReducer, { count: 0, date: {} });
   });
 
   it('matches component snapshot', () => {
@@ -31,7 +31,7 @@ describe('Count', () => {
     const expectedCount = 1;
     expect(section.find('p').text()).toEqual(`The button has been clicked ${expectedCount} times.`);
     expect(store.getState().count).toEqual(expectedCount);
-    expect(useEffect).toHaveBeenCalledTimes(2);
+    expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [expectedCount]);
     expect(document.title.endsWith(`(${expectedCount})`)).toBe(true);
   });
 
@@ -42,7 +42,7 @@ describe('Count', () => {
 
     const expectedCount = 1;
     expect(section.find('p').text()).toEqual(`The button has been clicked ${expectedCount} times.`);
-    expect(useEffect).toHaveBeenCalledTimes(2);
+    expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [0]);
     expect(document.title.endsWith('(0)')).toBe(true);
   });
 });

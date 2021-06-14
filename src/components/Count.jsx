@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'actions/count';
+import { getDate } from 'actions/date';
 import { APP_NAME } from '../constants';
 import './Count.scss';
 
@@ -8,7 +9,10 @@ import './Count.scss';
 const { title } = typeof document !== 'undefined' ? document : {};
 
 const Count = () => {
-  const storeCount = useSelector((state) => state.count);
+  const {
+    count: storeCount,
+    date: { message, status }
+  } = useSelector(({ count, date }) => ({ count, date }));
   const dispatch = useDispatch();
 
   const [count, setCount] = useState(0);
@@ -45,6 +49,21 @@ const Count = () => {
             type="button"
             label="click this"
             onClick={() => setCount(count + 1)}
+          >
+            Click this
+          </button>
+        </div>
+      </section>
+      <section>
+        <h2>Date API</h2>
+        <div>
+          <p>{`The date and time on the server is ${message} and the status is ${status}.`}</p>
+          <button
+            id="apiButton"
+            className="primary center"
+            type="button"
+            label="get API date/time"
+            onClick={() => dispatch(getDate())}
           >
             Click this
           </button>

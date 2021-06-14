@@ -43,5 +43,24 @@ Array [
       </button>
     </div>
   </section>,
+  <section>
+    <h2>
+      Date API
+    </h2>
+    <div>
+      <p>
+        The date and time on the server is undefined and the status is undefined.
+      </p>
+      <button
+        className="primary center"
+        id="apiButton"
+        label="get API date/time"
+        onClick={[Function]}
+        type="button"
+      >
+        Click this
+      </button>
+    </div>
+  </section>,
 ]
 `;

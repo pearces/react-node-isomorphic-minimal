@@ -1,12 +1,13 @@
 import React from 'react';
 import { StaticRouter as Router, matchPath } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import rootReducer from 'reducers';
 import Html from 'components/Html';
 import App from 'components/App';
 import RouteConfig, { routes } from './routes';
+import fetchMiddleware from './fetchMiddleware';
 
 import {
   DEFAULT_PORT,
@@ -40,12 +41,17 @@ app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname
 
 app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 
+app.get('/date', (req, res) => {
+  res.set('Content-Type', 'application/json');
+  res.status(200).send(JSON.stringify(Date.now()));
+});
+
 app.get('*', (req, res) => {
   const activeRoute = routes.find((route) => matchPath(req.url, route));
 
   const getAssetType = (ext) => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
 
-  const store = createStore(rootReducer);
+  const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
 
   const content = ReactDOMServer.renderToString(
     <Html
