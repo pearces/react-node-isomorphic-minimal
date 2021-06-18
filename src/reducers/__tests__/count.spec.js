@@ -1,5 +1,5 @@
 import { INCREMENT } from 'actions/count';
-import reducer, { DEFAULT_STATE } from '../count';
+import reducer, { DEFAULT_STATE } from 'reducers/count';
 
 describe('count reducer', () => {
   it(`${INCREMENT} action`, () => {

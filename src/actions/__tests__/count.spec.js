@@ -1,4 +1,4 @@
-import { INCREMENT, increment } from '../count';
+import { INCREMENT, increment } from 'actions/count';
 
 describe('count actions', () => {
   it('increment', () => {
