@@ -7,18 +7,9 @@ import rootReducer from 'reducers';
 import { CALL_STATUS } from 'reducers/date';
 import Count from '../Count';
 import fetchMiddleware from '../../fetchMiddleware';
+import { mockFetch, pendingFetchMock } from '../../__mocks__/fetchMock';
 
 const { PENDING, COMPLETE, FAILED } = CALL_STATUS;
-
-let mockApiSuccess = true;
-let mockDate;
-const mockApiError = 'API call failed';
-const mockFetch = jest.fn(() => Promise.resolve({
-  json: () => {
-    mockDate = Date.now();
-    return mockApiSuccess ? Promise.resolve(mockDate) : Promise.reject(Error(mockApiError));
-  }
-}));
 
 describe('Count', () => {
   let useEffect;
@@ -28,8 +19,7 @@ describe('Count', () => {
     useEffect = jest.spyOn(React, 'useEffect');
     useEffect.mockClear();
 
-    global.fetch = mockFetch;
-    fetch.mockClear();
+    global.fetch = mockFetch();
 
     store = createStore(rootReducer, { count: 0, date: {} }, applyMiddleware(fetchMiddleware));
   });
@@ -64,7 +54,7 @@ describe('Count', () => {
   });
 
   it('handles component API call button clicks with pending response', (done) => {
-    global.fetch = () => new Promise(() => {});
+    global.fetch = pendingFetchMock;
     const app = mount(<Provider store={store}><Count /></Provider>);
     const section = app.find('section').at(2);
     section.find('button').simulate('click');
@@ -75,6 +65,8 @@ describe('Count', () => {
   });
 
   it('handles component API call button clicks with successful response', (done) => {
+    const mockDate = Date.now();
+    global.fetch = mockFetch(true, mockDate);
     const app = mount(<Provider store={store}><Count /></Provider>);
     const section = app.find('section').at(2);
     section.find('button').simulate('click');
@@ -87,7 +79,8 @@ describe('Count', () => {
   });
 
   it('handles component API call button clicks with failed response', (done) => {
-    mockApiSuccess = false;
+    const mockApiError = 'API call failed';
+    global.fetch = mockFetch(false, null, mockApiError);
     const app = mount(<Provider store={store}><Count /></Provider>);
     const section = app.find('section').at(2);
     section.find('button').simulate('click');
