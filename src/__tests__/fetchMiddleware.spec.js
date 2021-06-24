@@ -38,6 +38,20 @@ describe('fetch middleware', () => {
     }, 0);
   });
 
+  it('calls next on successful action fetch (text)', (done) => {
+    const type = 'success_fetch';
+    const response = 'this is text';
+    const action = { type, fetch: { url: 'localhost/api/foo', options: { method: 'GET' } } };
+    global.fetch = mockFetch(true, response, undefined, false);
+    fetchMiddleware()(next)(action);
+
+    expect.assertions(1);
+    setTimeout(() => {
+      expect(next).toHaveBeenLastCalledWith({ type: `${type}_${SUCCESS}`, payload: response });
+      done();
+    }, 0);
+  });
+
   it('calls next on failed action fetch', (done) => {
     const type = 'failed_fetch';
     const error = 'call failed';
