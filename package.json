@@ -1,6 +1,6 @@
 {
   "name": "react-node-isomorphic-minimal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Minimal isomorphic react, node app skeleton",
   "main": "index.js",
   "author": "Stephen Pearce (https://github.com/pearces)",
