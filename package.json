@@ -20,6 +20,7 @@
     "node": ">=12.13.0"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.15.7",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "prop-types": "^15.7.2",
@@ -36,7 +37,6 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.2.0",

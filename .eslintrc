@@ -1,6 +1,6 @@
 {
   "extends": ["airbnb", "plugin:react-hooks/recommended"],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "rules": {
     "comma-dangle": ["error", "never"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
