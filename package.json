@@ -1,5 +1,5 @@
 {
-  "name": "react-node-isomorphic-minimal",
+  "name": "@pearces/react-node-isomorphic-minimal",
   "version": "1.0.0",
   "description": "Minimal isomorphic react, node app skeleton",
   "main": "index.js",
@@ -16,6 +16,7 @@
     "webpack",
     "redux"
   ],
+  "homepage": "https://github.com/pearces/react-node-isomorphic-minimal#readme",
   "engines": {
     "node": ">=12.13.0"
   },
