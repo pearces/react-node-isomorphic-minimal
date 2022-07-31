@@ -18,7 +18,7 @@
   ],
   "homepage": "https://github.com/pearces/react-node-isomorphic-minimal#readme",
   "engines": {
-    "node": ">=12.20.0"
+    "node": ">=14.15.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.18.9",
