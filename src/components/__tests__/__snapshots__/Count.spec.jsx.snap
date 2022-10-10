@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Count matches component snapshot 1`] = `
-Array [
+[
   <h1>
     react-node-isomorphic-minimal app
   </h1>,
