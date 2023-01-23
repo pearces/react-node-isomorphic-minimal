@@ -60,7 +60,7 @@
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
     "react-test-renderer": "^17.0.2",
-    "sass": "^1.55.0",
+    "sass": "^1.57.1",
     "sass-loader": "^13.0.2",
     "webpack-cli": "^4.10.0",
     "webpack-manifest-plugin": "^5.0.0",
