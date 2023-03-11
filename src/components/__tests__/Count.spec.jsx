@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import rootReducer from 'reducers';
 import { CALL_STATUS } from 'reducers/date';
 import Count from '../Count';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StaticRouter as Router, matchPath } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import rootReducer from 'reducers';
