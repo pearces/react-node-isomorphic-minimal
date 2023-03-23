@@ -1,34 +1,29 @@
 import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import App from 'components/App';
 import Count from 'components/Count';
 import NoMatch from 'components/NoMatch';
-import { Switch, Route } from 'react-router-dom';
 
 export const routes = [
   {
-    path: '/',
-    component: Count,
-    exact: true
-  },
-  {
-    path: '/count',
-    component: Count
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Count />
+      },
+      {
+        path: '/count',
+        element: <Count />
+      },
+      {
+        path: '*',
+        element: <NoMatch routes={[{ path: '/' }, { path: '/count' }]} />
+      }
+    ]
   }
 ];
 
-const RouteConfig = (props) => (
-  <Switch>
-    {routes.map(({ path, component: Component, ...rest }) => (
-      <Route
-        key={path}
-        path={path}
-        {...rest}
-        render={(routeProps) => <Component {...routeProps} {...props} />}
-      />
-    ))}
-    <Route path="*">
-      <NoMatch routes={routes} />
-    </Route>
-  </Switch>
-);
-
-export default RouteConfig;
+export default function Routes() {
+  return useRoutes(routes);
+}
