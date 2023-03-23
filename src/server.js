@@ -1,12 +1,12 @@
 import React from 'react';
-import { StaticRouter as Router, matchPath } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
+import { matchRoutes } from 'react-router-dom';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import rootReducer from 'reducers';
 import Html from 'components/Html';
-import App from 'components/App';
-import RouteConfig, { routes } from './routes';
+import Routes, { routes } from './routes';
 import fetchMiddleware from './fetchMiddleware';
 
 import {
@@ -47,7 +47,7 @@ app.get('/date', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  const activeRoute = routes.find((route) => matchPath(req.url, route));
+  const activeRoute = (matchRoutes(routes, req.url) || []).find(({ route }) => route.path && route.path !== '*');
 
   const getAssetType = (ext) => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
 
@@ -61,13 +61,13 @@ app.get('*', (req, res) => {
       inlineCss={inlineCss}
       inlineScripts={[`window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}`]}
     >
-      <Router location={req.url}>
+      <React.StrictMode>
         <Provider store={store}>
-          <App>
-            <RouteConfig />
-          </App>
+          <StaticRouter location={req.url}>
+            <Routes />
+          </StaticRouter>
         </Provider>
-      </Router>
+      </React.StrictMode>
     </Html>
   );
 

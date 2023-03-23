@@ -1,12 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { legacy_createStore as createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import App from 'components/App';
 import rootReducer from 'reducers';
-import RouteConfig from './routes';
+import { routes } from './routes';
 import fetchMiddleware from './fetchMiddleware';
 
 const preloadedState = window.__PRELOADED_STATE__;
@@ -19,11 +18,13 @@ const store = createStore(
   composeEnhancers(applyMiddleware(fetchMiddleware))
 );
 
+const router = createBrowserRouter(routes);
+
 ReactDOM.hydrate(
-  <Router>
+  <React.StrictMode>
     <Provider store={store}>
-      <App><RouteConfig /></App>
+      <RouterProvider router={router} fallbackElement={null} />
     </Provider>
-  </Router>,
+  </React.StrictMode>,
   document.getElementById('app')
 );

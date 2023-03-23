@@ -1,13 +1,11 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import './App.scss';
 
-const App = ({ children }) => (
-  <>{children}</>
+const App = () => (
+  <main>
+    <Outlet />
+  </main>
 );
-
-App.propTypes = {
-  children: PropTypes.node.isRequired
-};
 
 export default App;
