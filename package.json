@@ -30,7 +30,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "redux": "^4.2.1",
-    "webpack": "^5.76.2"
+    "webpack": "^5.76.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
