@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { MemoryRouter as Router } from 'react-router-dom';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import NoMatch from '../NoMatch';
 
 describe('NoMatch', () => {
   const routes = [
-    { path: '/', component: <div /> },
-    { path: '/foo', component: <div /> }
+    { path: '/', element: <div /> },
+    { path: '/foo', element: <div /> }
   ];
 
   it('matches component snapshot', () => {
@@ -17,7 +17,7 @@ describe('NoMatch', () => {
   });
 
   it('renders routes as links', () => {
-    const noMatch = shallow(<NoMatch routes={routes} />);
-    expect(noMatch.find('Link').length).toEqual(routes.length);
+    render(<Router><NoMatch routes={routes} /></Router>);
+    expect(screen.queryAllByRole('link').length).toEqual(routes.length);
   });
 });

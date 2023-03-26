@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import rootReducer from 'reducers';
@@ -30,65 +31,61 @@ describe('Count', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('handles redux store state button clicks', () => {
-    const app = mount(<Provider store={store}><Count /></Provider>);
-    const section = app.find('section').at(0);
-    section.find('button').simulate('click');
+  it('handles redux store state button clicks', async () => {
+    const app = render(<Provider store={store}><Count /></Provider>).container;
+    const section = app.querySelector('section');
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
 
     const expectedCount = 1;
-    expect(section.find('p').text()).toEqual(`The button has been clicked ${expectedCount} times.`);
+    expect(screen.queryByText(`The button has been clicked ${expectedCount} times.`)).toBeTruthy();
     expect(store.getState().count).toEqual(expectedCount);
     expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [expectedCount]);
     expect(document.title.endsWith(`(${expectedCount})`)).toBe(true);
   });
 
-  it('handles component state button clicks', () => {
-    const app = mount(<Provider store={store}><Count /></Provider>);
-    const section = app.find('section').at(1);
-    section.find('button').simulate('click');
+  it('handles component state button clicks', async () => {
+    const app = render(<Provider store={store}><Count /></Provider>).container;
+    const section = app.querySelectorAll('section')[1];
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
 
     const expectedCount = 1;
-    expect(section.find('p').text()).toEqual(`The button has been clicked ${expectedCount} times.`);
+    expect(screen.queryByText((`The button has been clicked ${expectedCount} times.`))).toBeTruthy();
     expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [0]);
     expect(document.title.endsWith('(0)')).toBe(true);
   });
 
-  it('handles component API call button clicks with pending response', (done) => {
+  it('handles component API call button clicks with pending response', async () => {
     global.fetch = pendingFetchMock;
-    const app = mount(<Provider store={store}><Count /></Provider>);
-    const section = app.find('section').at(2);
-    section.find('button').simulate('click');
-    setTimeout(() => {
-      expect(section.find('p').text().includes(PENDING)).toEqual(true);
-      done();
-    }, 0);
+    const app = render(<Provider store={store}><Count /></Provider>).container;
+    const section = app.querySelectorAll('section')[2];
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
+    await waitFor(() => expect(screen.queryByText(RegExp(PENDING))).toBeTruthy());
   });
 
-  it('handles component API call button clicks with successful response', (done) => {
+  it('handles component API call button clicks with successful response', async () => {
     const mockDate = Date.now();
     global.fetch = mockFetch(true, mockDate);
-    const app = mount(<Provider store={store}><Count /></Provider>);
-    const section = app.find('section').at(2);
-    section.find('button').simulate('click');
-    setTimeout(() => {
-      const text = section.find('p').text();
-      expect(text.includes(COMPLETE)).toEqual(true);
-      expect(text.includes(Date(mockDate))).toEqual(true);
-      done();
-    }, 0);
+    const app = render(<Provider store={store}><Count /></Provider>).container;
+    const section = app.querySelectorAll('section')[2];
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
+
+    await waitFor(() => expect(screen.queryByText(RegExp(COMPLETE))).toBeTruthy());
+    await waitFor(() => expect(screen.queryByText(RegExp(Date(mockDate).match(/.*GMT/)))).toBeTruthy());
   });
 
-  it('handles component API call button clicks with failed response', (done) => {
+  it('handles component API call button clicks with failed response', async () => {
     const mockApiError = 'API call failed';
     global.fetch = mockFetch(false, null, mockApiError);
-    const app = mount(<Provider store={store}><Count /></Provider>);
-    const section = app.find('section').at(2);
-    section.find('button').simulate('click');
-    setTimeout(() => {
-      const text = section.find('p').text();
-      expect(text.includes(FAILED)).toEqual(true);
-      expect(text.includes(mockApiError)).toEqual(true);
-      done();
-    }, 0);
+    const app = render(<Provider store={store}><Count /></Provider>).container;
+    const section = app.querySelectorAll('section')[2];
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
+
+    await waitFor(() => expect(screen.queryByText(RegExp(FAILED))).toBeTruthy());
+    await waitFor(() => expect(screen.queryByText(RegExp(mockApiError))).toBeTruthy());
   });
 });

@@ -17,7 +17,7 @@ import {
 
 const express = require('express');
 const compression = require('compression');
-const ReactDOMServer = require('react-dom/server');
+const { renderToPipeableStream } = require('react-dom/server');
 const path = require('path');
 const fs = require('fs');
 
@@ -53,7 +53,8 @@ app.get('*', (req, res) => {
 
   const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
 
-  const content = ReactDOMServer.renderToString(
+  // TODO: change to bootstrapScriptContent, bootstrapScripts to include scripts
+  const { pipe } = renderToPipeableStream(
     <Html
       title={APP_NAME}
       stylesheets={getAssetType('css')}
@@ -68,11 +69,21 @@ app.get('*', (req, res) => {
           </StaticRouter>
         </Provider>
       </React.StrictMode>
-    </Html>
+    </Html>,
+    {
+      onShellReady() {
+        res.statusCode = activeRoute ? 200 : 404;
+        if (req.method === 'GET') res.setHeader('Cache-Control', cacheControl);
+        res.setHeader('Content-type', 'text/html');
+        pipe(res);
+      },
+      onError: (error) => {
+        res.statusCode = 500;
+        console.error(error); // eslint-disable-line no-console
+        pipe(error);
+      }
+    }
   );
-
-  if (req.method === 'GET') res.set('Cache-Control', cacheControl);
-  res.status(activeRoute ? 200 : 404).send(`<!DOCTYPE html>${content}`);
 });
 
 app.listen(port, () => {

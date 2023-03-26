@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { legacy_createStore as createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -20,11 +20,11 @@ const store = createStore(
 
 const router = createBrowserRouter(routes);
 
-ReactDOM.hydrate(
+hydrateRoot(
+  document.getElementById('app'),
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} fallbackElement={null} />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('app')
+  </React.StrictMode>
 );
