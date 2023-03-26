@@ -8,9 +8,7 @@ exports[`Html matches component snapshot 1`] = `
     <meta
       charSet="utf-8"
     />
-    <title>
-      
-    </title>
+    <title />
     <meta
       content=""
       name="description"
