@@ -23,6 +23,7 @@ const fs = require('fs');
 
 const app = express();
 const { PORT: port = DEFAULT_PORT, NODE_ENV } = process.env;
+const STATIC_PATH = '/static';
 
 let inlineCss;
 let assets = [];
@@ -37,7 +38,7 @@ const getAssets = () => {
 
 app.use(compression());
 
-app.use([/^\/static\/server\.js/, '/static'], express.static(path.join(__dirname)));
+app.use([/^\/static\/server\.js/, STATIC_PATH], express.static(path.join(__dirname)));
 
 app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 
@@ -49,18 +50,18 @@ app.get('/date', (req, res) => {
 app.get('*', (req, res) => {
   const activeRoute = (matchRoutes(routes, req.url) || []).find(({ route }) => route.path && route.path !== '*');
 
-  const getAssetType = (ext) => assets.filter((asset) => RegExp(`.${ext}`).test(asset));
+  const getAssetType = (ext) => assets
+    .filter((asset) => RegExp(`.${ext}`).test(asset))
+    .map((asset) => `${STATIC_PATH}/${asset}`);
 
   const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
+  const clientStore = `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}`;
 
-  // TODO: change to bootstrapScriptContent, bootstrapScripts to include scripts
   const { pipe } = renderToPipeableStream(
     <Html
       title={APP_NAME}
       stylesheets={getAssetType('css')}
-      scripts={getAssetType('js')}
       inlineCss={inlineCss}
-      inlineScripts={[`window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}`]}
     >
       <React.StrictMode>
         <Provider store={store}>
@@ -71,6 +72,8 @@ app.get('*', (req, res) => {
       </React.StrictMode>
     </Html>,
     {
+      bootstrapScriptContent: clientStore,
+      bootstrapScripts: getAssetType('js'),
       onShellReady() {
         res.statusCode = activeRoute ? 200 : 404;
         if (req.method === 'GET') res.setHeader('Cache-Control', cacheControl);
