@@ -15,11 +15,11 @@ import {
   INLINE_CSS_FILE
 } from './constants';
 
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const compression = require('compression');
 const { renderToPipeableStream } = require('react-dom/server');
-const path = require('path');
-const fs = require('fs');
 
 const app = express();
 const { PORT: port = DEFAULT_PORT, NODE_ENV } = process.env;
