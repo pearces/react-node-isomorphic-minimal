@@ -1,3 +1,5 @@
+const util = require('util');
+
 module.exports = {
   rootDir: './src',
   testMatch: [
@@ -21,5 +23,8 @@ module.exports = {
     'node_modules',
     'src'
   ],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  globals: {
+    TextEncoder: util.TextEncoder // required for renderToString in Html.spec.jsx
+  }
 };

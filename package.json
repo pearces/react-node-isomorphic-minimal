@@ -71,7 +71,7 @@
     "build": "webpack --progress --mode production",
     "build:dev": "NODE_ENV=development webpack --progress --mode development",
     "clean": "node utils/clean.js dist",
-    "unit": "jest",
+    "unit": "jest --runInBand",
     "test": "npm run lint && npm run unit",
     "server": "NODE_ENV=production node dist/server.js",
     "server:dev": "node utils/waitForFile.js dist/server.js dist/manifest.json && NODE_ENV=development nodemon --inspect --delay 2.5 --watch dist --ext js --ignore dist/bundle.js dist/server.js",
