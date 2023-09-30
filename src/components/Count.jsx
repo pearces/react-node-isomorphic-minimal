@@ -9,10 +9,8 @@ import './Count.scss';
 const { title } = typeof document !== 'undefined' ? document : {};
 
 const Count = () => {
-  const {
-    count: storeCount,
-    date: { message, status }
-  } = useSelector(({ count, date }) => ({ count, date }));
+  const storeCount = useSelector(({ count }) => (count));
+  const { message, status } = useSelector(({ date }) => (date));
   const dispatch = useDispatch();
 
   const [count, setCount] = useState(0);
