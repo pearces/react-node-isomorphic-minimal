@@ -1,6 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
@@ -87,5 +92,11 @@ describe('Count', () => {
 
     await waitFor(() => expect(screen.queryByText(RegExp(FAILED))).toBeTruthy());
     await waitFor(() => expect(screen.queryByText(RegExp(mockApiError))).toBeTruthy());
+  });
+
+  it('waits for lazy loaded component', async () => {
+    render(<Provider store={store}><Count /></Provider>);
+    await waitForElementToBeRemoved(screen.queryByText(/Loading.../), { timeout: 2500 });
+    await waitFor(() => expect(screen.queryByText(/This is a lazy loaded component./)).toBeTruthy());
   });
 });

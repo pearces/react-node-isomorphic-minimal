@@ -62,5 +62,13 @@ exports[`Count matches component snapshot 1`] = `
       </button>
     </div>
   </section>,
+  <section>
+    <h2>
+      Client-side Lazy loading
+    </h2>
+    <div>
+      Loading...
+    </div>
+  </section>,
 ]
 `;

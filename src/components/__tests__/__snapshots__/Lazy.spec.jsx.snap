@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lazy matches component snapshot 1`] = `
+<div>
+  <p>
+    This is a lazy loaded component.
+  </p>
+</div>
+`;

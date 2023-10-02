@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'actions/count';
 import { getDate } from 'actions/date';
@@ -7,6 +7,12 @@ import './Count.scss';
 
 /* istanbul ignore next */
 const { title } = typeof document !== 'undefined' ? document : {};
+
+const delayedPromise = (promise, delay) => new Promise((resolve) => {
+  setTimeout(resolve, delay);
+}).then(() => promise);
+
+const LazyComponent = lazy(() => delayedPromise(import('./Lazy'), 1500));
 
 const Count = () => {
   const storeCount = useSelector(({ count }) => (count));
@@ -66,6 +72,12 @@ const Count = () => {
             Click this
           </button>
         </div>
+      </section>
+      <section>
+        <h2>Client-side Lazy loading</h2>
+        <Suspense fallback={<div>Loading...</div>}>
+          <LazyComponent />
+        </Suspense>
       </section>
     </>
   );
