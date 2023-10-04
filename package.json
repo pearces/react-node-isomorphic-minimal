@@ -2,7 +2,8 @@
   "name": "@pearces/react-node-isomorphic-minimal",
   "version": "1.0.0",
   "description": "Minimal isomorphic react, node app skeleton",
-  "main": "index.js",
+  "main": "./dist/server.js",
+  "browser": "./dist/bundle.js",
   "author": "Stephen Pearce (https://github.com/pearces)",
   "license": "MIT",
   "repository": {
