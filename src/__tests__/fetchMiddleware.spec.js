@@ -62,7 +62,11 @@ describe('fetch middleware', () => {
     expect.assertions(1);
     setTimeout(() => {
       const actionError = Error(error);
-      expect(next).toHaveBeenLastCalledWith({ type: `${type}_${FAILED}`, error: actionError, payload: actionError });
+      expect(next).toHaveBeenLastCalledWith({
+        type: `${type}_${FAILED}`,
+        error: actionError,
+        payload: actionError
+      });
       done();
     }, 0);
   });

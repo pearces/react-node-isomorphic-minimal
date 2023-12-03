@@ -20,12 +20,14 @@ const fetchMiddleware = () => (next) => (action) => {
   return fetch(url, options)
     .then((response) => (response.json ? response.json() : response))
     .then((data) => next({ type: SUCCESS, ...rest, payload: data }))
-    .catch((error) => next({
-      type: FAILED,
-      ...rest,
-      error,
-      payload: error
-    }));
+    .catch((error) =>
+      next({
+        type: FAILED,
+        ...rest,
+        error,
+        payload: error
+      })
+    );
 };
 
 export default fetchMiddleware;

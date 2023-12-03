@@ -9,11 +9,7 @@ import Html from 'components/Html';
 import Routes, { routes } from './routes';
 import fetchMiddleware from './fetchMiddleware';
 
-import {
-  DEFAULT_PORT,
-  APP_NAME,
-  INLINE_CSS_FILE
-} from './constants';
+import { DEFAULT_PORT, APP_NAME, INLINE_CSS_FILE } from './constants';
 
 const path = require('path');
 const fs = require('fs');
@@ -48,21 +44,23 @@ app.get('/date', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  const activeRoute = (matchRoutes(routes, req.url) || []).find(({ route }) => route.path && route.path !== '*');
+  const activeRoute = (matchRoutes(routes, req.url) || []).find(
+    ({ route }) => route.path && route.path !== '*'
+  );
 
-  const getAssetType = (ext) => assets
-    .filter((asset) => RegExp(`.${ext}`).test(asset))
-    .map((asset) => `${STATIC_PATH}/${asset}`);
+  const getAssetType = (ext) =>
+    assets
+      .filter((asset) => RegExp(`.${ext}`).test(asset))
+      .map((asset) => `${STATIC_PATH}/${asset}`);
 
   const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
-  const clientStore = `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}`;
+  const clientStore = `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(
+    /</g,
+    '\\u003c'
+  )}`;
 
   const { pipe } = renderToPipeableStream(
-    <Html
-      title={APP_NAME}
-      stylesheets={getAssetType('css')}
-      inlineCss={inlineCss}
-    >
+    <Html title={APP_NAME} stylesheets={getAssetType('css')} inlineCss={inlineCss}>
       <React.StrictMode>
         <Provider store={store}>
           <StaticRouter location={req.url}>
@@ -91,7 +89,8 @@ app.get('*', (req, res) => {
 
 app.listen(port, () => {
   const inlineCssPath = path.join(__dirname, INLINE_CSS_FILE);
-  if (fs.existsSync(inlineCssPath)) inlineCss = fs.readFileSync(inlineCssPath, { encoding: 'utf-8' });
+  if (fs.existsSync(inlineCssPath))
+    inlineCss = fs.readFileSync(inlineCssPath, { encoding: 'utf-8' });
 
   assets = getAssets();
 
