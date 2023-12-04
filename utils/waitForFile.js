@@ -17,4 +17,4 @@ console.log(`Waiting for ${fullPaths.join(', ')}...`);
     process.exit(0);
   }
   setTimeout(() => filesExist(remaining), 500);
-}(fullPaths));
+})(fullPaths);

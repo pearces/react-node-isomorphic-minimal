@@ -11,13 +11,21 @@ describe('NoMatch', () => {
   ];
 
   it('matches component snapshot', () => {
-    const html = renderer.create(<Router><NoMatch routes={routes} /></Router>);
+    const html = renderer.create(
+      <Router>
+        <NoMatch routes={routes} />
+      </Router>
+    );
     const tree = html.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders routes as links', () => {
-    render(<Router><NoMatch routes={routes} /></Router>);
+    render(
+      <Router>
+        <NoMatch routes={routes} />
+      </Router>
+    );
     expect(screen.queryAllByRole('link').length).toEqual(routes.length);
   });
 });

@@ -8,15 +8,16 @@ import './Count.scss';
 /* istanbul ignore next */
 const { title } = typeof document !== 'undefined' ? document : {};
 
-const delayedPromise = (promise, delay) => new Promise((resolve) => {
-  setTimeout(resolve, delay);
-}).then(() => promise);
+const delayedPromise = (promise, delay) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  }).then(() => promise);
 
 const LazyComponent = lazy(() => delayedPromise(import('./Lazy'), 1500));
 
 const Count = () => {
-  const storeCount = useSelector(({ count }) => (count));
-  const { message, status } = useSelector(({ date }) => (date));
+  const storeCount = useSelector(({ count }) => count);
+  const { message, status } = useSelector(({ date }) => date);
   const dispatch = useDispatch();
 
   const [count, setCount] = useState(0);

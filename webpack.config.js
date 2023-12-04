@@ -37,10 +37,7 @@ const common = {
   },
   optimization: {
     minimize: !isDev,
-    minimizer: [
-      '...',
-      new CssMinimizerPlugin()
-    ]
+    minimizer: ['...', new CssMinimizerPlugin()]
   }
 };
 
@@ -79,9 +76,7 @@ const serverConfig = {
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
-  plugins: [
-    new MiniCssExtractPlugin({ filename: 'inline.css' })
-  ],
+  plugins: [new MiniCssExtractPlugin({ filename: 'inline.css' })],
   module: {
     ...common.module,
     rules: [
