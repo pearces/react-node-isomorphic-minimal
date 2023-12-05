@@ -1,8 +1,9 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from 'actions/count';
 import { getDate } from 'actions/date';
 import { APP_NAME } from '../constants';
+import { ThemeContext } from '../context/ThemeContext';
 import './Count.scss';
 
 /* istanbul ignore next */
@@ -19,6 +20,7 @@ const Count = () => {
   const storeCount = useSelector(({ count }) => count);
   const { message, status } = useSelector(({ date }) => date);
   const dispatch = useDispatch();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [count, setCount] = useState(0);
 
@@ -79,6 +81,15 @@ const Count = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <LazyComponent />
         </Suspense>
+      </section>
+      <section>
+        <h2>Context</h2>
+        <div>
+          <p>{`The current theme is ${theme}.`}</p>
+          <button id="toggleTheme" className="primary center" type="button" onClick={toggleTheme}>
+            Toggle
+          </button>
+        </div>
       </section>
     </>
   );

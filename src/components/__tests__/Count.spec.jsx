@@ -9,12 +9,15 @@ import { CALL_STATUS } from 'reducers/date';
 import Count from '../Count';
 import fetchMiddleware from '../../fetchMiddleware';
 import { mockFetch, pendingFetchMock } from '../../__mocks__/fetchMock';
+import { ThemeProvider } from '../../context/ThemeContext';
+import { THEMES } from '../../constants';
 
 const { PENDING, COMPLETE, FAILED } = CALL_STATUS;
 
 describe('Count', () => {
   let useEffect;
   let store;
+  let appContainer;
 
   beforeEach(() => {
     useEffect = jest.spyOn(React, 'useEffect');
@@ -23,24 +26,24 @@ describe('Count', () => {
     global.fetch = mockFetch();
 
     store = createStore(rootReducer, { count: 0, date: {} }, applyMiddleware(fetchMiddleware));
+
+    appContainer = (
+      <ThemeProvider>
+        <Provider store={store}>
+          <Count />
+        </Provider>
+      </ThemeProvider>
+    );
   });
 
   it('matches component snapshot', () => {
-    const app = renderer.create(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    );
+    const app = renderer.create(appContainer);
     const tree = app.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('handles redux store state button clicks', async () => {
-    const app = render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    ).container;
+    const app = render(appContainer).container;
     const section = app.querySelector('section');
     const user = userEvent.setup();
     await user.click(section.querySelector('button'));
@@ -53,11 +56,7 @@ describe('Count', () => {
   });
 
   it('handles component state button clicks', async () => {
-    const app = render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    ).container;
+    const app = render(appContainer).container;
     const section = app.querySelectorAll('section')[1];
     const user = userEvent.setup();
     await user.click(section.querySelector('button'));
@@ -70,11 +69,7 @@ describe('Count', () => {
 
   it('handles component API call button clicks with pending response', async () => {
     global.fetch = pendingFetchMock;
-    const app = render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    ).container;
+    const app = render(appContainer).container;
     const section = app.querySelectorAll('section')[2];
     const user = userEvent.setup();
     await user.click(section.querySelector('button'));
@@ -84,11 +79,7 @@ describe('Count', () => {
   it('handles component API call button clicks with successful response', async () => {
     const mockDate = Date.now();
     global.fetch = mockFetch(true, mockDate);
-    const app = render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    ).container;
+    const app = render(appContainer).container;
     const section = app.querySelectorAll('section')[2];
     const user = userEvent.setup();
     await user.click(section.querySelector('button'));
@@ -102,11 +93,7 @@ describe('Count', () => {
   it('handles component API call button clicks with failed response', async () => {
     const mockApiError = 'API call failed';
     global.fetch = mockFetch(false, null, mockApiError);
-    const app = render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    ).container;
+    const app = render(appContainer).container;
     const section = app.querySelectorAll('section')[2];
     const user = userEvent.setup();
     await user.click(section.querySelector('button'));
@@ -116,14 +103,20 @@ describe('Count', () => {
   });
 
   it('waits for lazy loaded component', async () => {
-    render(
-      <Provider store={store}>
-        <Count />
-      </Provider>
-    );
+    render(appContainer);
     await waitForElementToBeRemoved(screen.queryByText(/Loading.../), { timeout: 2500 });
     await waitFor(() =>
       expect(screen.queryByText(/This is a lazy loaded component./)).toBeTruthy()
     );
+  });
+
+  it('handles theme toggle button clicks', async () => {
+    const app = render(appContainer).container;
+    const section = app.querySelectorAll('section')[4];
+    const user = userEvent.setup();
+    await user.click(section.querySelector('button'));
+
+    const expectedTheme = THEMES.DARK;
+    expect(screen.queryByText(`The current theme is ${expectedTheme}.`)).toBeTruthy();
   });
 });

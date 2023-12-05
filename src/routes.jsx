@@ -3,10 +3,15 @@ import { useRoutes } from 'react-router-dom';
 import App from 'components/App';
 import Count from 'components/Count';
 import NoMatch from 'components/NoMatch';
+import { ThemeProvider } from './context/ThemeContext';
 
 export const routes = [
   {
-    element: <App />,
+    element: (
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    ),
     children: [
       {
         path: '/',

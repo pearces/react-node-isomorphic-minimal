@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ThemeContext } from '../context/ThemeContext';
 import './App.scss';
 
-const App = () => (
-  <main>
-    <Outlet />
-  </main>
-);
+const App = () => {
+  const { theme } = useContext(ThemeContext);
+  return (
+    <main className={theme}>
+      <Outlet />
+    </main>
+  );
+};
 
 export default App;

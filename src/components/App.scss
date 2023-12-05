@@ -2,8 +2,16 @@
 @use '~normalize.css/normalize';
 
 #app {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  main {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: 100vh;
+
+    &.dark {
+      background-color: #222;
+      color: #fff;
+    }
+  }
 }
 
 button {

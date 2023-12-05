@@ -70,5 +70,23 @@ exports[`Count matches component snapshot 1`] = `
       Loading...
     </div>
   </section>,
+  <section>
+    <h2>
+      Context
+    </h2>
+    <div>
+      <p>
+        The current theme is light.
+      </p>
+      <button
+        className="primary center"
+        id="toggleTheme"
+        onClick={[Function]}
+        type="button"
+      >
+        Toggle
+      </button>
+    </div>
+  </section>,
 ]
 `;

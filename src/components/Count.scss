@@ -15,3 +15,12 @@
     }
   }
 }
+
+section {
+  button {
+    .dark & {
+      background-color: #00008b;
+      border-color: #00002b;
+    }
+  }
+}

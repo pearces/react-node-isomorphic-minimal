@@ -1,4 +1,8 @@
 // add critical path styles here to be included inline in the index file html
+* {
+  overflow: auto;
+}
+
 html,
 body {
   min-height: 100%;

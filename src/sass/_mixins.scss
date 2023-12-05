@@ -1,17 +1,25 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 @mixin sm {
-  @media (min-width: #{$sm-min}) { @content; }
+  @media (min-width: #{$sm-min}) {
+    @content;
+  }
 }
 
 @mixin md {
-  @media (min-width: #{$md-min}) { @content; }
+  @media (min-width: #{$md-min}) {
+    @content;
+  }
 }
 
 @mixin lg {
-  @media (min-width: #{$lg-min}) { @content; }
+  @media (min-width: #{$lg-min}) {
+    @content;
+  }
 }
 
 @mixin xl {
-  @media (min-width: #{$xl-min}) { @content; }
+  @media (min-width: #{$xl-min}) {
+    @content;
+  }
 }
