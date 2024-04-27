@@ -64,7 +64,7 @@
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
     "prettier": "^3.2.5",
-    "react-test-renderer": "^18.2.0",
+    "react-test-renderer": "^18.3.1",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.1",
     "webpack-cli": "^5.1.4",
