@@ -13,6 +13,7 @@ exports[`NoMatch matches component snapshot 1`] = `
   >
     <li>
       <a
+        data-discover="true"
         href="/"
         onClick={[Function]}
       >
@@ -21,6 +22,7 @@ exports[`NoMatch matches component snapshot 1`] = `
     </li>
     <li>
       <a
+        data-discover="true"
         href="/foo"
         onClick={[Function]}
       >

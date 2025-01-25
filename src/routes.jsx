@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import App from 'components/App';
 import Count from 'components/Count';
 import NoMatch from 'components/NoMatch';

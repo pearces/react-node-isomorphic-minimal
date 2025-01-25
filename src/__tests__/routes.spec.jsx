@@ -1,5 +1,5 @@
 import React from 'react';
-import { StaticRouter as Router } from 'react-router-dom/server';
+import { StaticRouter as Router } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import RouteConfig, { routes } from '../routes';
 

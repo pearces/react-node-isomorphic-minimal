@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router/dom';
+import { createBrowserRouter } from 'react-router';
 import { legacy_createStore as createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from 'reducers';
@@ -24,7 +25,7 @@ hydrateRoot(
   document.getElementById('app'),
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} fallbackElement={null} />
+      <RouterProvider router={router} HydrateFallback={null} />
     </Provider>
   </React.StrictMode>
 );

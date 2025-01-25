@@ -1,6 +1,5 @@
 import React from 'react';
-import { StaticRouter } from 'react-router-dom/server';
-import { matchRoutes } from 'react-router-dom';
+import { StaticRouter, matchRoutes } from 'react-router';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
