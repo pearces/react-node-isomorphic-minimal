@@ -42,7 +42,7 @@ app.get('/date', (req, res) => {
   res.status(200).send(JSON.stringify(Date.now()));
 });
 
-app.get('*', (req, res) => {
+app.get('*splat', (req, res) => {
   const activeRoute = (matchRoutes(routes, req.url) || []).find(
     ({ route }) => route.path && route.path !== '*'
   );
@@ -86,7 +86,11 @@ app.get('*', (req, res) => {
   );
 });
 
-app.listen(port, () => {
+app.listen(port, (error) => {
+  if (error) {
+    console.error(error); // eslint-disable-line no-console
+    throw error;
+  }
   const inlineCssPath = path.join(__dirname, INLINE_CSS_FILE);
   if (fs.existsSync(inlineCssPath))
     inlineCss = fs.readFileSync(inlineCssPath, { encoding: 'utf-8' });
