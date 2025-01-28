@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import './NoMatch.scss';
 
-const NoMatch = ({ routes }) => (
+const NoMatch = ({ routes = [] }) => (
   <>
     <h1>404 - Not Found</h1>
     <h3>Try one of these instead:</h3>
@@ -24,10 +24,6 @@ NoMatch.propTypes = {
       component: PropTypes.element
     })
   )
-};
-
-NoMatch.defaultProps = {
-  routes: []
 };
 
 export default NoMatch;

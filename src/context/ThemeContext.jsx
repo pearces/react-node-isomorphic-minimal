@@ -11,7 +11,7 @@ export const ThemeContext = React.createContext({
   toggleTheme: /* istanbul ignore next */ () => {}
 });
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider = ({ children = null }) => {
   const [theme, setTheme] = React.useState(defaultTheme);
   const toggleTheme = useCallback(() => {
     setTheme(theme === LIGHT ? DARK : LIGHT);
@@ -24,8 +24,4 @@ export const ThemeProvider = ({ children }) => {
 
 ThemeProvider.propTypes = {
   children: PropTypes.node
-};
-
-ThemeProvider.defaultProps = {
-  children: null
 };

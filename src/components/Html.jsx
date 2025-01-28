@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Main.scss';
 
-const Html = ({ children, title, inlineCss, inlineScripts, description, stylesheets, scripts }) => (
+const Html = ({
+  children,
+  title = '',
+  inlineCss = undefined,
+  inlineScripts = [],
+  description = '',
+  stylesheets = [],
+  scripts = []
+}) => (
   /* eslint-disable react/no-danger, react/no-array-index-key */
   <html lang="en">
     <head>
@@ -38,15 +46,6 @@ Html.propTypes = {
   inlineScripts: PropTypes.arrayOf(PropTypes.string),
   stylesheets: PropTypes.arrayOf(PropTypes.string),
   scripts: PropTypes.arrayOf(PropTypes.string)
-};
-
-Html.defaultProps = {
-  title: '',
-  inlineCss: undefined,
-  inlineScripts: [],
-  description: '',
-  stylesheets: [],
-  scripts: []
 };
 
 export default Html;
