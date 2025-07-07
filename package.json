@@ -59,7 +59,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.3.0",
     "jest": "^30.0.3",
-    "jest-environment-jsdom": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.4",
     "mini-css-extract-plugin": "^2.9.2",
     "nodemon": "^3.1.10",
     "normalize.css": "^8.0.1",
