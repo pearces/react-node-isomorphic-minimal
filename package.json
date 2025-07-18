@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.28.0",
-    "compression": "^1.8.0",
+    "compression": "^1.8.1",
     "express": "^5.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
