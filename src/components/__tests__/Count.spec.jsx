@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
@@ -37,8 +36,8 @@ describe('Count', () => {
   });
 
   it('matches component snapshot', () => {
-    const app = renderer.create(appContainer);
-    const tree = app.toJSON();
+    const app = render(appContainer);
+    const tree = app.asFragment();
     expect(tree).toMatchSnapshot();
   });
 

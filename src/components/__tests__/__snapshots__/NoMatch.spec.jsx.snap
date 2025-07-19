@@ -1,21 +1,20 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`NoMatch matches component snapshot 1`] = `
-[
+<DocumentFragment>
   <h1>
     404 - Not Found
-  </h1>,
+  </h1>
   <h3>
     Try one of these instead:
-  </h3>,
+  </h3>
   <ul
-    className="no-list-style"
+    class="no-list-style"
   >
     <li>
       <a
         data-discover="true"
         href="/"
-        onClick={[Function]}
       >
         /
       </a>
@@ -24,11 +23,10 @@ exports[`NoMatch matches component snapshot 1`] = `
       <a
         data-discover="true"
         href="/foo"
-        onClick={[Function]}
       >
         /foo
       </a>
     </li>
-  </ul>,
-]
+  </ul>
+</DocumentFragment>
 `;

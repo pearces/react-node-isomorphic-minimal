@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import Html from '../Html';
 
@@ -10,12 +10,12 @@ describe('Html', () => {
   };
 
   it('matches component snapshot', () => {
-    const html = renderer.create(
+    const html = render(
       <Html>
         <div />
       </Html>
     );
-    const tree = html.toJSON();
+    const tree = html.asFragment();
     expect(tree).toMatchSnapshot();
   });
 

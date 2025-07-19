@@ -1,10 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Count matches component snapshot 1`] = `
-[
+<DocumentFragment>
   <h1>
     react-node-isomorphic-minimal app
-  </h1>,
+  </h1>
   <section>
     <h2>
       Redux counter
@@ -14,16 +14,15 @@ exports[`Count matches component snapshot 1`] = `
         The button has been clicked 0 times.
       </p>
       <button
-        className="primary center"
+        class="primary center"
         id="storeButton"
         label="click this"
-        onClick={[Function]}
         type="button"
       >
         Click this
       </button>
     </div>
-  </section>,
+  </section>
   <section>
     <h2>
       Component counter
@@ -33,16 +32,15 @@ exports[`Count matches component snapshot 1`] = `
         The button has been clicked 0 times.
       </p>
       <button
-        className="primary center"
+        class="primary center"
         id="stateButton"
         label="click this"
-        onClick={[Function]}
         type="button"
       >
         Click this
       </button>
     </div>
-  </section>,
+  </section>
   <section>
     <h2>
       Date API
@@ -52,16 +50,15 @@ exports[`Count matches component snapshot 1`] = `
         The date and time on the server is undefined and the status is undefined.
       </p>
       <button
-        className="primary center"
+        class="primary center"
         id="apiButton"
         label="get API date/time"
-        onClick={[Function]}
         type="button"
       >
         Click this
       </button>
     </div>
-  </section>,
+  </section>
   <section>
     <h2>
       Client-side Lazy loading
@@ -69,7 +66,7 @@ exports[`Count matches component snapshot 1`] = `
     <div>
       Loading...
     </div>
-  </section>,
+  </section>
   <section>
     <h2>
       Context
@@ -79,14 +76,13 @@ exports[`Count matches component snapshot 1`] = `
         The current theme is light.
       </p>
       <button
-        className="primary center"
+        class="primary center"
         id="toggleTheme"
-        onClick={[Function]}
         type="button"
       >
         Toggle
       </button>
     </div>
-  </section>,
-]
+  </section>
+</DocumentFragment>
 `;

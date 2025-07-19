@@ -1,9 +1,11 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Lazy matches component snapshot 1`] = `
-<div>
-  <p>
-    This is a lazy loaded component.
-  </p>
-</div>
+<DocumentFragment>
+  <div>
+    <p>
+      This is a lazy loaded component.
+    </p>
+  </div>
+</DocumentFragment>
 `;
