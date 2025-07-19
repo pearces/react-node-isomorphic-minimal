@@ -2,6 +2,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import babelParser from '@babel/eslint-parser';
 import jestplugin from 'eslint-plugin-jest';
+import configPrettier from 'eslint-config-prettier/flat';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 
@@ -50,5 +51,6 @@ export default [
       }
     }
   },
-  prettierRecommended
+  prettierRecommended,
+  configPrettier
 ];
