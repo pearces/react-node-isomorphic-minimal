@@ -1,25 +1,13 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import babelParser from '@babel/eslint-parser';
 import jestplugin from 'eslint-plugin-jest';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import globals from 'globals';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  resolvePluginsRelativeTo: __dirname
-});
 
 export default [
   reactPlugin.configs.flat.recommended,
   reactHooksPlugin.configs['recommended-latest'],
-  ...compat.extends('airbnb'),
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -56,6 +44,9 @@ export default [
         webpack: {
           config: 'webpack.config.js'
         }
+      },
+      react: {
+        version: 'detect'
       }
     }
   },

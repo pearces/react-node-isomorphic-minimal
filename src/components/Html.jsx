@@ -11,7 +11,6 @@ const Html = ({
   stylesheets = [],
   scripts = []
 }) => (
-  /* eslint-disable react/no-danger, react/no-array-index-key */
   <html lang="en">
     <head>
       <meta charSet="utf-8" />

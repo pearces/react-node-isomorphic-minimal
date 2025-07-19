@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router/dom';

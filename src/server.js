@@ -79,7 +79,7 @@ app.get('*splat', (req, res) => {
       },
       onError: (error) => {
         res.statusCode = 500;
-        console.error(error); // eslint-disable-line no-console
+        console.error(error);
         pipe(error);
       }
     }
@@ -88,7 +88,7 @@ app.get('*splat', (req, res) => {
 
 app.listen(port, (error) => {
   if (error) {
-    console.error(error); // eslint-disable-line no-console
+    console.error(error);
     throw error;
   }
   const inlineCssPath = path.join(__dirname, INLINE_CSS_FILE);
@@ -97,5 +97,5 @@ app.listen(port, (error) => {
 
   assets = getAssets();
 
-  console.log(`App listening on localhost:${port}`); // eslint-disable-line no-console
+  console.log(`App listening on localhost:${port}`);
 });

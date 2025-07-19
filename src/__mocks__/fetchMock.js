@@ -1,4 +1,3 @@
-// eslint-disable-next-line default-param-last
 export const mockFetch = (success = true, response, error, json = true) =>
   jest.fn(() =>
     success

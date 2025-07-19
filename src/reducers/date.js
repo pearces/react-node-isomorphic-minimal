@@ -8,7 +8,6 @@ export const CALL_STATUS = {
   FAILED: 'failed'
 };
 
-// eslint-disable-next-line default-param-last
 export default (state = DEFAULT_STATE, action) => {
   const { PENDING, COMPLETE, FAILED } = CALL_STATUS;
 
