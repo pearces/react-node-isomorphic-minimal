@@ -8,7 +8,6 @@ import globals from 'globals';
 
 export default [
   reactPlugin.configs.flat.recommended,
-  reactHooksPlugin.configs['recommended-latest'],
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -27,7 +26,8 @@ export default [
     },
     plugins: {
       react: reactPlugin,
-      jest: jestplugin
+      jest: jestplugin,
+      'react-hooks': reactHooksPlugin
     },
     rules: {
       'comma-dangle': ['error', 'never'],
@@ -35,7 +35,8 @@ export default [
       'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
       'react/require-default-props': [1, { functions: 'defaultArguments' }],
       'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
-      'prettier/prettier': 'error'
+      'prettier/prettier': 'error',
+      ...reactHooksPlugin.configs['recommended-latest'].rules
     },
     settings: {
       'import/resolver': {
