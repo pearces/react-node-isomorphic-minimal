@@ -67,7 +67,7 @@
     "sass": "^1.93.2",
     "sass-loader": "^16.0.6",
     "webpack-cli": "^6.0.1",
-    "webpack-manifest-plugin": "^5.0.1",
+    "webpack-manifest-plugin": "^6.0.0",
     "webpack-node-externals": "^3.0.0"
   },
   "scripts": {
