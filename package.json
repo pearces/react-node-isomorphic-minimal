@@ -64,7 +64,7 @@
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
     "prettier": "^3.6.2",
-    "sass": "^1.93.3",
+    "sass": "^1.94.0",
     "sass-loader": "^16.0.6",
     "webpack-cli": "^6.0.1",
     "webpack-manifest-plugin": "^6.0.1",
