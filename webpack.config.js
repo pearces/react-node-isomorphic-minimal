@@ -1,9 +1,9 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { ManifestPlugin } = require('webpack');
 
 const distPath = path.join(__dirname, 'dist');
 const isDev = process.env.NODE_ENV === 'development';
@@ -53,7 +53,7 @@ const clientConfig = {
     filename: `${isDev ? '[name]' : '[name]-[contenthash]'}.js`
   },
   plugins: [
-    new WebpackManifestPlugin(),
+    new ManifestPlugin({ filename: 'manifest.json' }),
     new MiniCssExtractPlugin({ filename: `${isDev ? '[name]' : '[name]-[contenthash]'}.css` }),
     new CopyPlugin({ patterns: [{ from: 'static' }] })
   ],

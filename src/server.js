@@ -28,7 +28,7 @@ const getAssets = () => {
   const manifest = fs.readFileSync(path.join(__dirname, 'manifest.json'), { encoding: 'utf-8' });
   const allAssets = JSON.parse(manifest);
 
-  return Object.values(allAssets);
+  return Object.values(allAssets?.assets || {}).map((asset) => asset.file);
 };
 
 app.use(compression());
@@ -97,5 +97,5 @@ app.listen(port, (error) => {
 
   assets = getAssets();
 
-  console.log(`App listening on localhost:${port}`);
+  console.log(`App listening on http://localhost:${port}`);
 });
