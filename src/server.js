@@ -48,9 +48,7 @@ app.get('*splat', (req, res) => {
   );
 
   const getAssetType = (ext) =>
-    assets
-      .filter((asset) => RegExp(`.${ext}`).test(asset))
-      .map((asset) => `${STATIC_PATH}/${asset}`);
+    assets.filter((asset) => asset.endsWith(`.${ext}`)).map((asset) => `${STATIC_PATH}/${asset}`);
 
   const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
   const clientStore = `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(
