@@ -22,7 +22,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.28.5",
+    "@babel/eslint-parser": "^7.28.6",
     "compression": "^1.8.1",
     "express": "^5.2.1",
     "prop-types": "^15.8.1",
