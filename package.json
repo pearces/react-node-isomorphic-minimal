@@ -59,7 +59,7 @@
     "globals": "^17.4.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
-    "mini-css-extract-plugin": "^2.10.0",
+    "mini-css-extract-plugin": "^2.10.1",
     "nodemon": "^3.1.14",
     "normalize.css": "^8.0.1",
     "null-loader": "^4.0.1",
