@@ -7,4 +7,4 @@ export const INLINE_CSS_FILE = 'inline.css';
 export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark'
-};
+} as const;

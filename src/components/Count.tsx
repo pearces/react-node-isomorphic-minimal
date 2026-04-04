@@ -4,21 +4,23 @@ import { increment } from 'actions/count';
 import { getDate } from 'actions/date';
 import { APP_NAME } from '../constants';
 import { ThemeContext } from '../context/ThemeContext';
+import type { RootState } from '../reducers';
 import './Count.scss';
 
 /* istanbul ignore next */
 const { title } = typeof document !== 'undefined' ? document : {};
 
-const delayedPromise = (promise, delay) =>
-  new Promise((resolve) => {
+const delayedPromise = <T,>(promise: Promise<T>, delay: number): Promise<T> =>
+  new Promise<T>((resolve) => {
     setTimeout(resolve, delay);
+    void resolve;
   }).then(() => promise);
 
 const LazyComponent = lazy(() => delayedPromise(import('./Lazy'), 1500));
 
 const Count = () => {
-  const storeCount = useSelector(({ count }) => count);
-  const { message, status } = useSelector(({ date }) => date);
+  const storeCount = useSelector((state: RootState) => state.count);
+  const { message, status } = useSelector((state: RootState) => state.date);
   const dispatch = useDispatch();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -39,7 +41,6 @@ const Count = () => {
             id="storeButton"
             className="primary center"
             type="button"
-            label="click this"
             onClick={() => dispatch(increment())}
           >
             Click this
@@ -54,7 +55,6 @@ const Count = () => {
             id="stateButton"
             className="primary center"
             type="button"
-            label="click this"
             onClick={() => setCount(count + 1)}
           >
             Click this
@@ -69,7 +69,6 @@ const Count = () => {
             id="apiButton"
             className="primary center"
             type="button"
-            label="get API date/time"
             onClick={() => dispatch(getDate())}
           >
             Click this

@@ -1,5 +1,5 @@
 import { GET_DATE } from 'actions/date';
-import reducer, { DEFAULT_STATE, CALL_STATUS } from 'reducers/date';
+import reducer, { DEFAULT_STATE, CALL_STATUS, type DateAction } from 'reducers/date';
 import { CALL_STATE } from '../../fetchMiddleware';
 
 const { REQUESTED, SUCCESS, FAILED } = CALL_STATE;
@@ -14,9 +14,9 @@ describe('date reducer', () => {
 
   it('date success state', () => {
     const payload = Date.now();
-    const state = reducer(DEFAULT_STATE, { type: `${GET_DATE}_${SUCCESS}`, payload });
+    const state = reducer(DEFAULT_STATE, { type: `${GET_DATE}_${SUCCESS}`, payload } as DateAction);
     const { status, message } = state;
-    expect(message).toEqual(Date(payload));
+    expect(message).toEqual(new Date(payload).toString());
     expect(status).toEqual(CALL_STATUS.COMPLETE);
   });
 
@@ -25,7 +25,11 @@ describe('date reducer', () => {
     const error = {
       message: 'API fail'
     };
-    const state = reducer(DEFAULT_STATE, { type: `${GET_DATE}_${FAILED}`, payload, error });
+    const state = reducer(DEFAULT_STATE, {
+      type: `${GET_DATE}_${FAILED}`,
+      payload,
+      error
+    } as DateAction);
     const { status, message } = state;
     expect(message).toEqual(error.message);
     expect(status).toEqual(CALL_STATUS.FAILED);

@@ -16,7 +16,7 @@ describe('routes', () => {
   describe('RouteConfig', () => {
     const notFoundText = '404 - Not Found';
     it('finds a match for the first route', () => {
-      const firstPath = routes[0].path;
+      const firstPath = routes[0].path!;
       const router = render(
         <Router location={firstPath}>
           <RouteConfig />

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useRoutes } from 'react-router';
+import { useRoutes, type RouteObject } from 'react-router';
 import App from 'components/App';
 import Count from 'components/Count';
 import NoMatch from 'components/NoMatch';
 import { ThemeProvider } from './context/ThemeContext';
 
-export const routes = [
+export const routes: RouteObject[] = [
   {
     element: (
       <ThemeProvider>

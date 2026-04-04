@@ -1,16 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { type ReactNode } from 'react';
 import './Main.scss';
+
+interface HtmlProps {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  inlineCss?: string;
+  inlineScripts?: string[];
+  stylesheets?: string[];
+  scripts?: string[];
+}
 
 const Html = ({
   children,
   title = '',
-  inlineCss = undefined,
+  inlineCss,
   inlineScripts = [],
   description = '',
   stylesheets = [],
   scripts = []
-}) => (
+}: HtmlProps) => (
   <html lang="en">
     <head>
       <meta charSet="utf-8" />
@@ -36,15 +45,5 @@ const Html = ({
     </body>
   </html>
 );
-
-Html.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  inlineCss: PropTypes.string,
-  inlineScripts: PropTypes.arrayOf(PropTypes.string),
-  stylesheets: PropTypes.arrayOf(PropTypes.string),
-  scripts: PropTypes.arrayOf(PropTypes.string)
-};
 
 export default Html;

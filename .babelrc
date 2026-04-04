@@ -1,13 +1,3 @@
 {
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        ["@babel/preset-env", { "targets": { "esmodules": false } }]
-      ]
-    }
-  }
+  "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]
 }

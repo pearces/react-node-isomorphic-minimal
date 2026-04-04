@@ -1,6 +1,7 @@
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import babelParser from '@babel/eslint-parser';
+import typescriptParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 import jestplugin from 'eslint-plugin-jest';
 import configPrettier from 'eslint-config-prettier/flat';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -9,13 +10,14 @@ import globals from 'globals';
 export default [
   reactPlugin.configs.flat.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      parser: babelParser,
+      parser: typescriptParser,
       parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          presets: ['@babel/preset-react']
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true
         }
       },
       globals: {
@@ -27,21 +29,26 @@ export default [
     plugins: {
       react: reactPlugin,
       jest: jestplugin,
-      'react-hooks': reactHooksPlugin
+      'react-hooks': reactHooksPlugin,
+      '@typescript-eslint': tsPlugin
     },
     rules: {
       'comma-dangle': ['error', 'never'],
-      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+      'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
       'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
-      'react/require-default-props': [1, { functions: 'defaultArguments' }],
-      'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/consistent-type-imports': 'error',
       'prettier/prettier': 'error',
-      ...reactHooksPlugin.configs['recommended-latest'].rules
+      ...reactHooksPlugin.configs['recommended-latest'].rules,
+      ...tsPlugin.configs.recommended.rules
     },
     settings: {
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx']
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
+        },
+        typescript: {
+          project: './tsconfig.json'
         },
         webpack: {
           config: 'webpack.config.js'

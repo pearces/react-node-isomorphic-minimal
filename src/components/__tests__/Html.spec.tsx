@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { type ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import Html from '../Html';
 
 describe('Html', () => {
-  const htmlComponentToDocument = (component) => {
+  const htmlComponentToDocument = (component: ReactElement) => {
     const html = renderToString(component);
     return new DOMParser().parseFromString(html, 'text/html');
   };
