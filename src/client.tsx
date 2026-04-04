@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router/dom';
 import { createBrowserRouter } from 'react-router';
@@ -8,7 +8,7 @@ import rootReducer from 'reducers';
 import { routes } from './routes';
 import fetchMiddleware from './fetchMiddleware';
 
-const preloadedState = window.__PRELOADED_STATE__;
+const preloadedState = window.__PRELOADED_STATE__ as ReturnType<typeof rootReducer> | undefined;
 delete window.__PRELOADED_STATE__;
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,12 +19,13 @@ const store = createStore(
 );
 
 const router = createBrowserRouter(routes);
+const appElement = document.getElementById('app');
 
 hydrateRoot(
-  document.getElementById('app'),
-  <React.StrictMode>
+  appElement as HTMLElement,
+  <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} HydrateFallback={null} />
+      <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>
+  </StrictMode>
 );

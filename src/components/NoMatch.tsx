@@ -1,9 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import './NoMatch.scss';
 
-const NoMatch = ({ routes = [] }) => (
+type NoMatchRoute = {
+  path: string;
+};
+
+type NoMatchProps = {
+  routes?: NoMatchRoute[];
+};
+
+const NoMatch = ({ routes = [] }: NoMatchProps) => (
   <>
     <h1>404 - Not Found</h1>
     <h3>Try one of these instead:</h3>
@@ -16,14 +23,5 @@ const NoMatch = ({ routes = [] }) => (
     </ul>
   </>
 );
-
-NoMatch.propTypes = {
-  routes: PropTypes.arrayOf(
-    PropTypes.shape({
-      path: PropTypes.string.isRequired,
-      component: PropTypes.element
-    })
-  )
-};
 
 export default NoMatch;

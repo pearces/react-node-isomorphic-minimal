@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { StaticRouter, matchRoutes } from 'react-router';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import path from 'path';
+import fs from 'fs';
+import express, { type Request, type Response } from 'express';
+import compression from 'compression';
+import { renderToPipeableStream } from 'react-dom/server';
 
 import rootReducer from 'reducers';
 import Html from 'components/Html';
@@ -10,25 +15,21 @@ import fetchMiddleware from './fetchMiddleware';
 
 import { DEFAULT_PORT, APP_NAME, INLINE_CSS_FILE } from './constants';
 
-const path = require('path');
-const fs = require('fs');
-const express = require('express');
-const compression = require('compression');
-const { renderToPipeableStream } = require('react-dom/server');
-
 const app = express();
 const { PORT: port = DEFAULT_PORT, NODE_ENV } = process.env;
 const STATIC_PATH = '/static';
 
-let inlineCss;
-let assets = [];
+let inlineCss: string | undefined;
+let assets: string[] = [];
 const cacheControl = NODE_ENV === 'development' ? 'no-cache' : 'max-age=300';
 
-const getAssets = () => {
+const getAssets = (): string[] => {
   const manifest = fs.readFileSync(path.join(__dirname, 'manifest.json'), { encoding: 'utf-8' });
-  const allAssets = JSON.parse(manifest);
+  const allAssets = JSON.parse(manifest) as Record<string, unknown>;
 
-  return Object.values(allAssets?.assets || {}).map((asset) => asset.file);
+  return Object.values((allAssets?.assets as Record<string, { file: string }>) || {}).map(
+    (asset) => asset.file
+  );
 };
 
 app.use(compression());
@@ -37,17 +38,17 @@ app.use([/^\/static\/server\.js/, STATIC_PATH], express.static(path.join(__dirna
 
 app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 
-app.get('/date', (req, res) => {
+app.get('/date', (req: Request, res: Response) => {
   res.set('Content-Type', 'application/json');
   res.status(200).send(JSON.stringify(Date.now()));
 });
 
-app.get('*splat', (req, res) => {
+app.get('*splat', (req: Request, res: Response) => {
   const activeRoute = (matchRoutes(routes, req.url) || []).find(
     ({ route }) => route.path && route.path !== '*'
   );
 
-  const getAssetType = (ext) =>
+  const getAssetType = (ext: string) =>
     assets.filter((asset) => asset.endsWith(`.${ext}`)).map((asset) => `${STATIC_PATH}/${asset}`);
 
   const store = createStore(rootReducer, undefined, applyMiddleware(fetchMiddleware));
@@ -58,13 +59,13 @@ app.get('*splat', (req, res) => {
 
   const { pipe } = renderToPipeableStream(
     <Html title={APP_NAME} stylesheets={getAssetType('css')} inlineCss={inlineCss}>
-      <React.StrictMode>
+      <StrictMode>
         <Provider store={store}>
           <StaticRouter location={req.url}>
             <Routes />
           </StaticRouter>
         </Provider>
-      </React.StrictMode>
+      </StrictMode>
     </Html>,
     {
       bootstrapScriptContent: clientStore,
@@ -78,7 +79,7 @@ app.get('*splat', (req, res) => {
       onError: (error) => {
         res.statusCode = 500;
         console.error(error);
-        pipe(error);
+        pipe(res);
       }
     }
   );

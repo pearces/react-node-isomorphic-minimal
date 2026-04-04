@@ -16,7 +16,6 @@ exports[`Count matches component snapshot 1`] = `
       <button
         class="primary center"
         id="storeButton"
-        label="click this"
         type="button"
       >
         Click this
@@ -34,7 +33,6 @@ exports[`Count matches component snapshot 1`] = `
       <button
         class="primary center"
         id="stateButton"
-        label="click this"
         type="button"
       >
         Click this
@@ -52,7 +50,6 @@ exports[`Count matches component snapshot 1`] = `
       <button
         class="primary center"
         id="apiButton"
-        label="get API date/time"
         type="button"
       >
         Click this

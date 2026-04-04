@@ -19,7 +19,7 @@ const common = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
@@ -28,7 +28,7 @@ const common = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
       actions: path.resolve(__dirname, 'src/actions/'),
@@ -45,7 +45,7 @@ const clientConfig = {
   ...common,
   target: 'browserslist',
   entry: {
-    bundle: './src/client.js'
+    bundle: './src/client.tsx'
   },
   output: {
     path: distPath,
@@ -70,7 +70,7 @@ const serverConfig = {
   ...common,
   target: 'node',
   externals: [nodeExternals()],
-  entry: './src/server.js',
+  entry: './src/server.tsx',
   output: {
     path: distPath,
     filename: 'server.js',
