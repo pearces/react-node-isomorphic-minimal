@@ -1,4 +1,5 @@
 import type { Middleware } from 'redux';
+import type { RootState } from 'reducers';
 
 export const CALL_STATE = {
   REQUESTED: 'REQUESTED',
@@ -15,7 +16,7 @@ type FetchAction = {
   [key: string]: unknown;
 };
 
-const fetchMiddleware: Middleware<unknown, unknown> = () => (next) => (action) => {
+const fetchMiddleware: Middleware<object, RootState> = () => (next) => (action) => {
   const { type, fetch: fetchAction, ...rest } = action as FetchAction;
 
   if (!fetchAction) return next(action);

@@ -1,8 +1,14 @@
 import fetchMiddleware, { CALL_STATE } from '../fetchMiddleware';
 import { successFetchMock, pendingFetchMock, errorFetchMock } from '../__mocks__/fetchMock';
 import { waitFor } from '@testing-library/react';
+import type { MiddlewareAPI } from 'redux';
 
 const { REQUESTED, SUCCESS, FAILED } = CALL_STATE;
+
+const mockApi = {
+  dispatch: jest.fn(),
+  getState: jest.fn()
+} as MiddlewareAPI;
 
 describe('fetch middleware', () => {
   const next = jest.fn();
@@ -13,7 +19,7 @@ describe('fetch middleware', () => {
 
   it('calls next on non-fetch action', () => {
     const action = { type: 'foo' };
-    fetchMiddleware({} as never)(next)(action);
+    fetchMiddleware(mockApi)(next)(action);
     expect(next).toHaveBeenCalledWith(action);
   });
 
@@ -21,7 +27,7 @@ describe('fetch middleware', () => {
     const type = 'pending_fetch';
     const action = { type, fetch: { url: 'localhost/api/foo', options: { method: 'GET' } } };
     global.fetch = pendingFetchMock;
-    fetchMiddleware({} as never)(next)(action);
+    fetchMiddleware(mockApi)(next)(action);
     expect(next).toHaveBeenCalledWith({ type: `${type}_${REQUESTED}` });
   });
 
@@ -30,7 +36,7 @@ describe('fetch middleware', () => {
     const response = new Date();
     const action = { type, fetch: { url: 'localhost/api/foo', options: { method: 'GET' } } };
     global.fetch = successFetchMock(response);
-    fetchMiddleware({} as never)(next)(action);
+    fetchMiddleware(mockApi)(next)(action);
 
     expect.assertions(2);
     await waitFor(() => {
@@ -43,7 +49,7 @@ describe('fetch middleware', () => {
     const response = 'this is text';
     const action = { type, fetch: { url: 'localhost/api/foo', options: { method: 'GET' } } };
     global.fetch = successFetchMock(response);
-    fetchMiddleware({} as never)(next)(action);
+    fetchMiddleware(mockApi)(next)(action);
 
     expect.assertions(2);
     await waitFor(() =>
@@ -56,7 +62,7 @@ describe('fetch middleware', () => {
     const error = 'call failed';
     const action = { type, fetch: { url: 'localhost/api/foo', options: { method: 'GET' } } };
     global.fetch = errorFetchMock(error);
-    fetchMiddleware({} as never)(next)(action);
+    fetchMiddleware(mockApi)(next)(action);
 
     expect.assertions(2);
     await waitFor(() => {

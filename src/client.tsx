@@ -8,7 +8,7 @@ import rootReducer from 'reducers';
 import { routes } from './routes';
 import fetchMiddleware from './fetchMiddleware';
 
-const preloadedState = window.__PRELOADED_STATE__ as ReturnType<typeof rootReducer> | undefined;
+const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

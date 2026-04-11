@@ -16,7 +16,7 @@ export const CALL_STATUS = {
 
 export type DateAction =
   | { type: `${typeof GET_DATE}_REQUESTED` }
-  | { type: `${typeof GET_DATE}_SUCCESS`; payload: unknown }
+  | { type: `${typeof GET_DATE}_SUCCESS`; payload: string | number }
   | { type: `${typeof GET_DATE}_FAILED`; error: { message?: string } }
   | { type: string };
 
