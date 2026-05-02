@@ -1,6 +1,6 @@
 type FetchMock = jest.Mock<Promise<Response>, [RequestInfo | URL, RequestInit?]>;
 
-const MockFetch: FetchMock = jest.fn();
+const MockFetch = jest.fn() as FetchMock;
 
 const successFetchMock = (response: unknown, json = true): FetchMock => {
   const mockResponse = {
@@ -26,6 +26,6 @@ const errorFetchMock = (error: unknown): FetchMock => {
   return MockFetch;
 };
 
-const pendingFetchMock = jest.fn(() => new Promise<never>(() => {}));
+const pendingFetchMock = jest.fn(() => new Promise<never>(() => null));
 
 export { MockFetch, successFetchMock, errorFetchMock, pendingFetchMock };

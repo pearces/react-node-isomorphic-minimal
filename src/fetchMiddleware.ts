@@ -7,14 +7,14 @@ export const CALL_STATE = {
   FAILED: 'FAILED'
 } as const;
 
-type FetchAction = {
+interface FetchAction {
   type: string;
   fetch?: {
     url: string;
     options?: RequestInit;
   };
   [key: string]: unknown;
-};
+}
 
 const fetchMiddleware: Middleware<object, RootState> = () => (next) => (action) => {
   const { type, fetch: fetchAction, ...rest } = action as FetchAction;
@@ -30,8 +30,8 @@ const fetchMiddleware: Middleware<object, RootState> = () => (next) => (action) 
 
   next({ type: REQUESTED });
   return fetch(url, options)
-    .then((response) => (response.json ? response.json() : response))
-    .then((data) => next({ type: SUCCESS, ...rest, payload: data }))
+    .then((response) => response.json())
+    .then((data: string | number) => next({ type: SUCCESS, ...rest, payload: data }))
     .catch((error: unknown) => {
       const errorMessage = error instanceof Error ? error.message : String(error);
       return next({

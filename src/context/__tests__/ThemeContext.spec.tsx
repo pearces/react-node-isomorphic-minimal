@@ -15,7 +15,7 @@ describe('ThemeContext', () => {
     expect(getByText(LIGHT)).toBeTruthy();
   });
 
-  it('should toggle the theme to dark', async () => {
+  it('should toggle the theme to dark', () => {
     const { getByText } = render(
       <ThemeProvider>
         <ThemeContext.Consumer>
@@ -37,7 +37,7 @@ describe('ThemeContext', () => {
     expect(getByText(DARK)).toBeTruthy();
   });
 
-  it('should toggle the theme back to light on second toggle', async () => {
+  it('should toggle the theme back to light on second toggle', () => {
     const { getByText } = render(
       <ThemeProvider>
         <ThemeContext.Consumer>

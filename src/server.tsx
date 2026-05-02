@@ -44,7 +44,7 @@ app.get('/date', (req: Request, res: Response) => {
 });
 
 app.get('*splat', (req: Request, res: Response) => {
-  const activeRoute = (matchRoutes(routes, req.url) || []).find(
+  const activeRoute = (matchRoutes(routes, req.url) ?? []).find(
     ({ route }) => route.path && route.path !== '*'
   );
 

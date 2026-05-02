@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import './NoMatch.scss';
 
-type NoMatchRoute = {
+interface NoMatchRoute {
   path: string;
-};
+}
 
-type NoMatchProps = {
+interface NoMatchProps {
   routes?: NoMatchRoute[];
-};
+}
 
 const NoMatch = ({ routes = [] }: NoMatchProps) => (
   <>

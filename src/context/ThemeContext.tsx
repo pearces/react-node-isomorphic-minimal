@@ -6,18 +6,18 @@ type Theme = (typeof THEMES)[keyof typeof THEMES];
 
 const defaultTheme: Theme = LIGHT;
 
-type ThemeContextValue = {
+interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
-};
+}
 
-type ThemeProviderProps = {
+interface ThemeProviderProps {
   children?: ReactNode;
-};
+}
 
 export const ThemeContext = createContext<ThemeContextValue>({
   theme: defaultTheme,
-  toggleTheme: () => {}
+  toggleTheme: () => null
 });
 
 export const ThemeProvider = ({ children = null }: ThemeProviderProps) => {

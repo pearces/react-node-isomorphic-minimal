@@ -57,7 +57,7 @@ describe('Count', () => {
 
     const expectedCount = 1;
     expect(screen.queryByText(`The button has been clicked ${expectedCount} times.`)).toBeTruthy();
-    expect((store.getState() as RootState).count as number).toEqual(expectedCount);
+    expect((store.getState() as RootState).count).toEqual(expectedCount);
     expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [expectedCount]);
     expect(document.title.endsWith(`(${expectedCount})`)).toBe(true);
   });
@@ -93,7 +93,7 @@ describe('Count', () => {
 
     await waitFor(() => expect(screen.queryByText(RegExp(COMPLETE))).toBeTruthy());
     const dateString = new Date(mockDate).toString();
-    const match = dateString.match(/.*GMT/);
+    const match = /.*GMT/.exec(dateString);
     expect(match).not.toBeNull();
     expect(screen.queryByText(new RegExp(match![0]))).toBeTruthy();
   });

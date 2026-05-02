@@ -1,6 +1,6 @@
 export const GET_DATE = 'GET_DATE' as const;
 
-export type GetDateAction = {
+export interface GetDateAction {
   type: typeof GET_DATE;
   fetch: {
     url: string;
@@ -8,7 +8,7 @@ export type GetDateAction = {
       method: 'GET';
     };
   };
-};
+}
 
 export const getDate = (): GetDateAction => ({
   type: GET_DATE,

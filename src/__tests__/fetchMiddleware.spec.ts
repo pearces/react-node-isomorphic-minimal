@@ -2,13 +2,15 @@ import fetchMiddleware, { CALL_STATE } from '../fetchMiddleware';
 import { successFetchMock, pendingFetchMock, errorFetchMock } from '../__mocks__/fetchMock';
 import { waitFor } from '@testing-library/react';
 import type { MiddlewareAPI } from 'redux';
+import type { AppDispatch } from '../client';
+import type { RootState } from 'reducers/index';
 
 const { REQUESTED, SUCCESS, FAILED } = CALL_STATE;
 
 const mockApi = {
   dispatch: jest.fn(),
   getState: jest.fn()
-} as MiddlewareAPI;
+} as MiddlewareAPI<AppDispatch, RootState>;
 
 describe('fetch middleware', () => {
   const next = jest.fn();

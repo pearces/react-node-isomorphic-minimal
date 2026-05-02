@@ -5,6 +5,7 @@ import { getDate } from 'actions/date';
 import { APP_NAME } from '../constants';
 import { ThemeContext } from '../context/ThemeContext';
 import type { RootState } from '../reducers';
+import type { AppDispatch } from '../client';
 import './Count.scss';
 
 /* istanbul ignore next */
@@ -21,7 +22,7 @@ const LazyComponent = lazy(() => delayedPromise(import('./Lazy'), 1500));
 const Count = () => {
   const storeCount = useSelector((state: RootState) => state.count);
   const { message, status } = useSelector((state: RootState) => state.date);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [count, setCount] = useState(0);

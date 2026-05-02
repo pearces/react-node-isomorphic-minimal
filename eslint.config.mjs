@@ -1,24 +1,26 @@
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import typescriptParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tseslint from 'typescript-eslint';
 import jestplugin from 'eslint-plugin-jest';
 import configPrettier from 'eslint-config-prettier/flat';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
-export default [
+export default defineConfig(
   reactPlugin.configs.flat.recommended,
+  tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      parser: typescriptParser,
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true
-        }
+        },
+        projectService: true
       },
       globals: {
         ...globals.browser,
@@ -29,8 +31,7 @@ export default [
     plugins: {
       react: reactPlugin,
       jest: jestplugin,
-      'react-hooks': reactHooksPlugin,
-      '@typescript-eslint': tsPlugin
+      'react-hooks': reactHooksPlugin
     },
     rules: {
       'comma-dangle': ['error', 'never'],
@@ -38,9 +39,9 @@ export default [
       'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-exports': 'error',
       'prettier/prettier': 'error',
-      ...reactHooksPlugin.configs['recommended-latest'].rules,
-      ...tsPlugin.configs.recommended.rules
+      ...reactHooksPlugin.configs['recommended-latest'].rules
     },
     settings: {
       'import/resolver': {
@@ -61,4 +62,4 @@ export default [
   },
   prettierRecommended,
   configPrettier
-];
+);
