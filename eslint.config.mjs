@@ -1,7 +1,6 @@
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
-import jestplugin from 'eslint-plugin-jest';
 import configPrettier from 'eslint-config-prettier/flat';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import { defineConfig } from 'eslint/config';
@@ -25,12 +24,11 @@ export default defineConfig(
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...jestplugin.environments.globals.globals
+        ...globals.jest
       }
     },
     plugins: {
       react: reactPlugin,
-      jest: jestplugin,
       'react-hooks': reactHooksPlugin
     },
     rules: {
