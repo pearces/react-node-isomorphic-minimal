@@ -1,6 +1,8 @@
 const util = require('util');
 
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
+  preset: 'ts-jest',
   rootDir: './src',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/'],
@@ -18,7 +20,7 @@ module.exports = {
     'server.js'
   ],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+    '^.+\\.(ts|tsx)$': 'ts-jest'
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.ts'
