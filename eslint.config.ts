@@ -19,7 +19,9 @@ export default defineConfig(
         ecmaFeatures: {
           jsx: true
         },
-        projectService: true
+        projectService: {
+          allowDefaultProject: ['*.config.ts']
+        }
       },
       globals: {
         ...globals.browser,
@@ -28,8 +30,7 @@ export default defineConfig(
       }
     },
     plugins: {
-      react: reactPlugin,
-      'react-hooks': reactHooksPlugin
+      react: reactPlugin
     },
     rules: {
       'comma-dangle': ['error', 'never'],
@@ -38,8 +39,7 @@ export default defineConfig(
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/consistent-type-exports': 'error',
-      'prettier/prettier': 'error',
-      ...reactHooksPlugin.configs['recommended-latest'].rules
+      'prettier/prettier': 'error'
     },
     settings: {
       'import/resolver': {
@@ -59,5 +59,6 @@ export default defineConfig(
     }
   },
   prettierRecommended,
-  configPrettier
+  configPrettier,
+  reactHooksPlugin.configs.flat['recommended-latest']
 );
