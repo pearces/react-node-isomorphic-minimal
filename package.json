@@ -55,6 +55,7 @@
     "globals": "^17.6.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
+    "jiti": "^2.6.1",
     "mini-css-extract-plugin": "^2.10.2",
     "nodemon": "^3.1.14",
     "normalize.css": "^8.0.1",

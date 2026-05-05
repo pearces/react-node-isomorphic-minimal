@@ -1,7 +1,8 @@
-const util = require('util');
+import type { Config } from 'jest';
+import { createDefaultPreset } from 'ts-jest';
+import util from 'util';
 
-/** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+const config: Config = {
   preset: 'ts-jest',
   rootDir: './src',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
@@ -19,9 +20,6 @@ module.exports = {
     'server.ts',
     'server.js'
   ],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.ts'
   },
@@ -29,5 +27,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   globals: {
     TextEncoder: util.TextEncoder // required for renderToString in Html.spec.jsx
+  },
+  ...createDefaultPreset(),
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }]
   }
 };
+
+export default config;
