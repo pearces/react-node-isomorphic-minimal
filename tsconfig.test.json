@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "ignoreDeprecations": "6.0",
-    "module": "commonjs", // Jest requires CJS to run tests reliably
-    "moduleResolution": "node10" // Silences the warning for Jest's runtime
-  }
-}

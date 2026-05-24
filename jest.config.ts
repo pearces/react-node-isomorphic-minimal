@@ -1,5 +1,4 @@
 import type { Config } from 'jest';
-import { createDefaultPreset } from 'ts-jest';
 import util from 'util';
 
 const config: Config = {
@@ -28,9 +27,8 @@ const config: Config = {
   globals: {
     TextEncoder: util.TextEncoder // required for renderToString in Html.spec.jsx
   },
-  ...createDefaultPreset(),
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }]
+    '^.+\\.(ts|tsx)$': 'ts-jest'
   }
 };
 
