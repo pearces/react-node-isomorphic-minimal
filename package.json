@@ -74,7 +74,7 @@
     "build": "webpack --progress --mode production",
     "build:dev": "NODE_ENV=development webpack --progress --mode development",
     "clean": "node utils/clean.cjs dist",
-    "unit": "jest --runInBand",
+    "unit": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "typecheck": "tsc --noEmit",
     "test": "npm run lint && npm run typecheck && npm run unit",
     "server": "NODE_ENV=production node dist/server.js",
