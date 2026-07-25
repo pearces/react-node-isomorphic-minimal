@@ -1,8 +1,7 @@
-import type { Config } from 'jest';
-import util from 'util';
+import type { JestConfigWithTsJest } from 'ts-jest';
 
-const config: Config = {
-  preset: 'ts-jest',
+const config: JestConfigWithTsJest = {
+  preset: 'ts-jest/presets/default-esm',
   rootDir: './src',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/'],
@@ -24,11 +23,15 @@ const config: Config = {
   },
   moduleDirectories: ['node_modules', 'src'],
   testEnvironment: 'jsdom',
-  globals: {
-    TextEncoder: util.TextEncoder // required for renderToString in Html.spec.jsx
-  },
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  injectGlobals: true,
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        useESM: true
+      }
+    ]
   }
 };
 

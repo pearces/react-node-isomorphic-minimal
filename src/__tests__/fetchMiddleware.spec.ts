@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import fetchMiddleware, { CALL_STATE } from '../fetchMiddleware';
 import { successFetchMock, pendingFetchMock, errorFetchMock } from '../__mocks__/fetchMock';
 import { waitFor } from '@testing-library/react';

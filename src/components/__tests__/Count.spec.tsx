@@ -1,4 +1,4 @@
-import React, { type EffectCallback, type DependencyList, type ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
@@ -21,14 +21,15 @@ const { PENDING, COMPLETE, FAILED } = CALL_STATUS;
 type ReduxStore = ReturnType<typeof createStore>;
 
 describe('Count', () => {
-  let useEffect: jest.SpyInstance<void, [effect: EffectCallback, deps?: DependencyList]>;
+  let useEffectSpy: ReturnType<typeof jest.spyOn>;
 
   let store: ReduxStore;
   let appContainer: ReactElement;
 
   beforeEach(() => {
-    useEffect = jest.spyOn(React, 'useEffect');
-    useEffect.mockClear();
+    useEffectSpy = jest.spyOn(React, 'useEffect');
+    const useEffectMock = useEffectSpy as unknown as { mockClear: () => void };
+    useEffectMock.mockClear();
 
     global.fetch = MockFetch;
 
@@ -58,7 +59,7 @@ describe('Count', () => {
     const expectedCount = 1;
     expect(screen.queryByText(`The button has been clicked ${expectedCount} times.`)).toBeTruthy();
     expect((store.getState() as RootState).count).toEqual(expectedCount);
-    expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [expectedCount]);
+    expect(useEffectSpy).toHaveBeenLastCalledWith(expect.any(Function), [expectedCount]);
     expect(document.title.endsWith(`(${expectedCount})`)).toBe(true);
   });
 
@@ -70,7 +71,7 @@ describe('Count', () => {
 
     const expectedCount = 1;
     expect(screen.queryByText(`The button has been clicked ${expectedCount} times.`)).toBeTruthy();
-    expect(useEffect).toHaveBeenLastCalledWith(expect.any(Function), [0]);
+    expect(useEffectSpy).toHaveBeenLastCalledWith(expect.any(Function), [0]);
     expect(document.title.endsWith('(0)')).toBe(true);
   });
 
