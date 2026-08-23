@@ -76,6 +76,30 @@ When working on this project:
 - Check hydration works correctly
 - Test both development and production builds
 
+## Test Validation Commands
+
+Before committing changes, run these validation commands:
+
+```bash
+# Linting - Check code quality and style compliance
+npm run lint
+
+# Type checking - Validate TypeScript compilation and type safety
+npm run typecheck
+
+# Unit testing - Run all unit tests with Jest
+npm run unit
+
+# Complete test suite - Runs lint, typecheck, and unit tests
+npm run test
+```
+
+**All commands must pass before submitting a pull request.** These commands verify:
+- **lint:** Code style compliance, potential issues, and best practices
+- **typecheck:** No TypeScript errors, proper type usage throughout both server and client code
+- **unit:** All unit tests pass, no regressions introduced
+- **test:** The complete validation suite (combines lint, typecheck, and unit)
+
 ## Build and Development
 
 - Ensure TypeScript compilation is working correctly
@@ -92,6 +116,7 @@ When reviewing PRs:
 - Validate SCSS changes don't break styling
 - Test hydration scenarios
 - Confirm no hydration mismatches occur
+- Confirm all validation commands pass (`npm run lint`, `npm run typecheck`, `npm run unit`, `npm run test`)
 
 ## Resources
 
@@ -107,6 +132,7 @@ When reviewing PRs:
 3. Understand the entry points for server and client
 4. Set up development environment variables if needed
 5. Test the full application flow locally
+6. Run validation commands: `npm run lint`, `npm run typecheck`, `npm run unit`, `npm run test`
 
 ---
 
